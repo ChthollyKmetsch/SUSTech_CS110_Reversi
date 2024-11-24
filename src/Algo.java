@@ -71,9 +71,15 @@ public class Algo {
         }
     }
     public void feedback() {
+        System.out.printf("  ");
         for (int i = 1; i <= 8; ++i) {
+            System.out.printf("y%d ",i);
+        }
+        System.out.println();
+        for (int i = 1; i <= 8; ++i) {
+            System.out.printf("x%d ",i);
             for (int j = 1; j <= 8; ++j) {
-                System.out.printf("%d ",this.map[i][j]);
+                System.out.printf("%d  ",this.map[i][j]);
             }
             System.out.println();
         }
