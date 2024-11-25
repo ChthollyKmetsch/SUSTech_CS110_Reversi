@@ -4,6 +4,10 @@ public class ValidMoves {
         this.x = x;
         this.y = y;
         this.len = len;
-        this.negDirIdx = negDirIdx;
+        this.negDirIdx = negDirIdx; // This variable refers to the index of direction to the expanding original point
+    }
+    public ValidMoves(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 }

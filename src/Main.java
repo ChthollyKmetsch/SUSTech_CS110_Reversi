@@ -11,9 +11,7 @@ public class Main {
         int op = 1;
         for (int i = 0; i < 10; ++i) {
             app.findValidPlace(op);
-            app.feedback();
-            app.printValidPlace();
-            System.out.printf("You are now playing as %s\n", op == 1 ? "BLACK(1)" : "WHITE(2)");
+            app.feedback(op);
             int x, y;
             for (int j = 0; j < 100; ++j) {
                 x = input.nextInt();
