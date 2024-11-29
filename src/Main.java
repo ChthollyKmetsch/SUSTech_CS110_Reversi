@@ -13,7 +13,7 @@ public class Main {
             if (op == 1) {
                 for (int j = 0; j < 100; ++j) { // player's move
                     app.findValidPlace(op);
-                    app.feedback(op);
+                    app.feedback(op); //
                     int x, y;
                     x = input.nextInt();
                     y = input.nextInt();

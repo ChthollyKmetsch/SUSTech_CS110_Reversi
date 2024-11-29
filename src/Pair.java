@@ -10,7 +10,7 @@ public class Pair implements Comparable<Pair> {
         this.val = val;
     }
     public Pair(Pair a) {
-        this.ft = a.getFt();
+        this.ft = a.getFt();//
         this.sc = a.getSc();
         this.val = a.getVal();
     }

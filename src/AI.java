@@ -61,7 +61,7 @@ public class AI extends Algo {
         }
 
         int[][] originMap = new int[10][10]; // whiteboard game map
-//        validMoves = currentValidMoves;
+//        validMoves = currentValidMoves;//
         for (int i = 0; i < 10; ++i) {// copy array manually
             for (int j = 0; j < 10; ++j)
                 originMap[i][j] = map[i][j];

@@ -9,7 +9,7 @@ public class Algo {
     public Algo() {
         this.map[4][4] = 2;
         this.map[5][5] = 2;
-        this.map[4][5] = 1;
+        this.map[4][5] = 1;//
         this.map[5][4] = 1;
     } // 1 is black, 2 is white
     public void findValidPlace(int currentOperator) {

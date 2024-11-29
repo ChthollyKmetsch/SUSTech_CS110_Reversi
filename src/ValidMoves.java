@@ -12,7 +12,7 @@ public class ValidMoves implements Comparable<ValidMoves>{
         this.x = x;
         this.y = y;
     }
-    @Override
+    @Override//
     public int compareTo(ValidMoves a) {
         if (this.x == a.x) return this.y - a.y;
         return this.x - a.x;
