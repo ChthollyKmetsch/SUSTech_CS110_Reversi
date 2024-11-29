@@ -6,13 +6,14 @@ public class Algo {
     protected int[][] map = new int[10][10];
     protected ArrayList<ValidMoves> validMoves = new ArrayList<ValidMoves>();
     protected HashSet<ValidMoves> validMovesSet = new HashSet<>();
-    public void initiate() {
+    public Algo() {
         this.map[4][4] = 2;
         this.map[5][5] = 2;
         this.map[4][5] = 1;
         this.map[5][4] = 1;
     } // 1 is black, 2 is white
     public void findValidPlace(int currentOperator) {
+        validMoves.clear();
         for (int i = 1; i <= 8; ++i) {
             for (int j = 1; j <= 8; ++j) { // The 2 loops find the coordinate of a chess
                 if (map[i][j] != currentOperator) continue;
@@ -22,6 +23,7 @@ public class Algo {
             }
         }
         validMoves.addAll(validMovesSet);
+        validMovesSet.clear();
     }
     protected int idxOfNextMove(int x, int y) { // To check the player's choice of move
         boolean flag = false;
@@ -62,7 +64,15 @@ public class Algo {
         for (int i = 1; i <= 8; ++i) {
             System.out.printf("x%d ",i);
             for (int j = 1; j <= 8; ++j) {
-                System.out.printf("%d  ",this.map[i][j]);
+                char output;
+                if (map[i][j] == 1) {
+                    output = '□';
+                } else if (map[i][j] == 2) {
+                    output = '■';
+                } else {
+                    output = '-';
+                }
+                System.out.print(output + "  ");
             }
             System.out.println();
         }

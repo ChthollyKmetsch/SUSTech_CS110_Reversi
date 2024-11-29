@@ -9,6 +9,24 @@ public class Pair implements Comparable<Pair> {
         this.sc = sc;
         this.val = val;
     }
+    public Pair(Pair a) {
+        this.ft = a.getFt();
+        this.sc = a.getSc();
+        this.val = a.getVal();
+    }
+
+    public int getFt() {
+        return ft;
+    }
+
+    public int getSc() {
+        return sc;
+    }
+
+    public int getVal() {
+        return val;
+    }
+
     @Override
     public int compareTo(Pair a) {
         if (this.ft == a.ft) {

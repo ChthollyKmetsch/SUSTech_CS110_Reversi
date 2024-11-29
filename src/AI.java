@@ -1,4 +1,6 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class AI extends Algo {
     private final int[][] estimate = {
@@ -21,23 +23,93 @@ public class AI extends Algo {
         this.map = algo.map.clone();
         this.targetDepth = targetDepth;
     }
-    public Pair search(int x, int y, int currentOperator, int currentDepth) {
+    public Pair search(int currentOperator, int currentDepth) { //
         // Brute force for now
-        if (currentDepth == targetDepth) {
-            return new Pair(x,y,estimate[x][y]);
-        }
-        Pair ans = new Pair(x,y,estimate[x][y]);
+        validMoves.clear();
         findValidPlace(currentOperator);
-        int[][] originMap = map.clone();
-        for (int i = 0; i < validMoves.size(); ++i) {
-            map = originMap.clone();
-            int nx = validMoves.get(i).x;
-            int ny = validMoves.get(i).y;
-            placeChess(nx,ny,currentOperator);
-            if (currentDepth < targetDepth) {
-                ans = search(nx,ny,currentOperator == 1 ? 2 : 1, currentDepth+1);
+        ArrayList<ValidMoves> currentValidMoves = new ArrayList<>(validMoves); // Current valid moves
+        if (currentDepth >= targetDepth) {
+            int finalVal = 0;
+            int finalX = 0, finalY = 0;
+            for (ValidMoves validMove : currentValidMoves) {
+                int x = validMove.x;
+                int y = validMove.y;
+                if (currentOperator == 1) {
+                    finalVal = -32767;
+                    if (estimate[x][y] > finalVal) {
+                        finalVal = estimate[x][y];
+                        finalX = x;
+                        finalY = y;
+                    }
+                } else {
+                    finalVal = 32767;
+                    if (estimate[x][y] < finalVal) {
+                        finalVal = estimate[x][y];
+                        finalX = x;
+                        finalY = y;
+                    }
+                }
+            }
+            return new Pair(finalX,finalY,finalVal);
+        }
+        Pair ans;
+        int ansVal = 0;
+        if (currentOperator == 1) {
+            ans = new Pair(0,0,-32767);
+        } else {
+            ans = new Pair(0,0,32767);
+        }
+
+        int[][] originMap = new int[10][10]; // whiteboard game map
+//        validMoves = currentValidMoves;
+        for (int i = 0; i < 10; ++i) {// copy array manually
+            for (int j = 0; j < 10; ++j)
+                originMap[i][j] = map[i][j];
+        }
+        for (ValidMoves currentValidMove : currentValidMoves) {
+            int nx = currentValidMove.x;
+            int ny = currentValidMove.y;
+            placeChess(nx, ny, currentOperator);
+            Pair tmp = search(currentOperator == 1 ? 2 : 1, currentDepth + 1);
+            if (currentOperator == 1) { // 1 is max node
+                if (ansVal == 0) ansVal = -32767;
+                if (ansVal < tmp.getVal()) {
+                    ansVal = tmp.getVal();
+                    ans = new Pair(nx,ny,ansVal);
+                }
+            } else {
+                if (ansVal == 0) ansVal = 32767;
+                if (ansVal > tmp.getVal()) {
+                    ansVal = tmp.getVal();
+                    ans = new Pair(nx,ny,ansVal);
+                }
+            }
+            for (int i = 0; i < 10; ++i) {// copy array manually
+                for (int j = 0; j < 10; ++j)
+                    map[i][j] = originMap[i][j];
             }
         }
         return ans;
+    }
+
+    @Override
+    public void feedback(int op) {
+        System.out.print("  ");
+        for (int i = 1; i <= 8; ++i) {
+            System.out.printf("y%d ",i);
+        }
+        System.out.println();
+        for (int i = 1; i <= 8; ++i) {
+            System.out.printf("x%d ",i);
+            for (int j = 1; j <= 8; ++j) {
+                System.out.printf("%d  ",this.map[i][j]);
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+    @Override
+    protected int idxOfNextMove(int x, int y) {
+        return 32767;
     }
 }
