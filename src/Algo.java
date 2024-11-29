@@ -1,10 +1,11 @@
-import java.util.ArrayList;
+import java.util.*;
 
 public class Algo {
-    private final int[] dx = {1,1,1,0,0,-1,-1,-1};
-    private final int[] dy = {0,1,-1,1,-1,1,-1,0};
-    private final int[][] map = new int[10][10];
-    private final ArrayList<ValidMoves> validMoves = new ArrayList<ValidMoves>();
+    protected final int[] dx = {1,1,1,0,0,-1,-1,-1};
+    protected final int[] dy = {0,1,-1,1,-1,1,-1,0};
+    protected int[][] map = new int[10][10];
+    protected ArrayList<ValidMoves> validMoves = new ArrayList<ValidMoves>();
+    protected HashSet<ValidMoves> validMovesSet = new HashSet<>();
     public void initiate() {
         this.map[4][4] = 2;
         this.map[5][5] = 2;
@@ -17,11 +18,12 @@ public class Algo {
                 if (map[i][j] != currentOperator) continue;
                 ArrayList<ValidMoves> tmpExpandedMoves = expand(i,j,currentOperator,false);
 //                debug(tmpExpandedMoves);
-                validMoves.addAll(tmpExpandedMoves);
+                validMovesSet.addAll(tmpExpandedMoves);
             }
         }
+        validMoves.addAll(validMovesSet);
     }
-    private int idxOfNextMove(int x, int y) { // To check the player's choice of move
+    protected int idxOfNextMove(int x, int y) { // To check the player's choice of move
         boolean flag = false;
         int idxOfValidMoves = -1;
         for (int i = 0; i < validMoves.size(); ++i) {
@@ -39,7 +41,7 @@ public class Algo {
         }
         map[x][y] = currentOperator;
         ArrayList<ValidMoves> tmp = expand(x,y,currentOperator,true);
-        debug(tmp);
+//        debug(tmp);
         for (ValidMoves s : tmp) {
             int dir = s.negDirIdx, len = s.len, nx = s.x, ny = s.y;
 
@@ -99,11 +101,12 @@ public class Algo {
     }
     public void clearPlayerOptions() {
         this.validMoves.clear();
+        this.validMovesSet.clear();
     }
-    private boolean isLimitOverflow(int x, int y) {
+    protected boolean isLimitOverflow(int x, int y) {
         return x > 8 || x < 1 || y > 8 || y < 1;
     }
-    private void debug(ArrayList<ValidMoves> a) {
+    protected void debug(ArrayList<ValidMoves> a) {
         for (ValidMoves s : a) {
             int dir = s.negDirIdx, len = s.len, nx = s.x, ny = s.y;
             System.out.printf("x=%d, y=%d, len=%d, dir=%d\n",nx,ny,len,dir);

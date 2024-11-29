@@ -9,10 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7190c19b-eaa1-4dad-b512-ae9fc449429c" name="更改" comment="PVP mode demo">
+    <list default="true" id="7190c19b-eaa1-4dad-b512-ae9fc449429c" name="更改" comment="PVP mode accomplished. Basic framework.">
+      <change afterPath="$PROJECT_DIR$/src/Pair.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Algo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Algo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Board.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ValidMoves.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ValidMoves.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ai.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,18 +32,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "ChthollyKmetsch"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ChthollyKmetsch&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/ChthollyKmetsch/SUSTech_CS110_Reversi.git",
-    "accountId": "7ee67759-e75f-4bc9-bbe5-2d3a2308ff21"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ChthollyKmetsch/SUSTech_CS110_Reversi.git&quot;,
+    &quot;accountId&quot;: &quot;7ee67759-e75f-4bc9-bbe5-2d3a2308ff21&quot;
   }
-}]]></component>
+}</component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -53,24 +56,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Downloaded.Files.Path.Enabled": "false",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Admin/IdeaProjects/SUSTech_CS110_Reversi",
-    "onboarding.tips.debug.path": "C:/Users/Admin/IdeaProjects/SUSTech_CS110_Reversi/src/Main.java",
-    "project.structure.last.edited": "工件",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "应用程序.Main.executor": "Run"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Admin/IdeaProjects/SUSTech_CS110_Reversi&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/Admin/IdeaProjects/SUSTech_CS110_Reversi/src/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;工件&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;应用程序.Main.executor&quot;: &quot;Run&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="默认任务">
@@ -88,7 +96,23 @@
       <option name="project" value="LOCAL" />
       <updated>1732366987758</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="PVP mode demo">
+      <option name="closed" value="true" />
+      <created>1732451237699</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1732451237699</updated>
+    </task>
+    <task id="LOCAL-00003" summary="PVP mode accomplished. Basic framework.">
+      <option name="closed" value="true" />
+      <created>1732523151476</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1732523151476</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -104,6 +128,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="PVP mode demo" />
-    <option name="LAST_COMMIT_MESSAGE" value="PVP mode demo" />
+    <MESSAGE value="PVP mode accomplished. Basic framework." />
+    <option name="LAST_COMMIT_MESSAGE" value="PVP mode accomplished. Basic framework." />
   </component>
 </project>
