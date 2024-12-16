@@ -9,13 +9,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7190c19b-eaa1-4dad-b512-ae9fc449429c" name="更改" comment="PVP mode accomplished. Basic framework.">
+    <list default="true" id="7190c19b-eaa1-4dad-b512-ae9fc449429c" name="更改" comment="AI (Minimax Algorithm) implemented.">
+      <change afterPath="$PROJECT_DIR$/src/ReversiBoard.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Saving.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Algo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Algo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/Frame.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pair.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pair.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ValidMoves.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ValidMoves.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +27,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -66,15 +68,19 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Admin/IdeaProjects/SUSTech_CS110_Reversi&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Admin/IdeaProjects/Lab14&quot;,
     &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/Admin/IdeaProjects/SUSTech_CS110_Reversi/src/Main.java&quot;,
     &quot;project.structure.last.edited&quot;: &quot;工件&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
     &quot;应用程序.Main.executor&quot;: &quot;Run&quot;
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Admin\IdeaProjects\SUSTech_CS110_Reversi\src\GUI\img" />
+    </key>
     <key name="ExtractSuperBase.RECENT_KEYS">
       <recent name="" />
     </key>
@@ -112,7 +118,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732523151476</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="AI (Minimax Algorithm) implemented.">
+      <option name="closed" value="true" />
+      <created>1732894013454</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1732894013454</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -129,6 +143,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="PVP mode demo" />
     <MESSAGE value="PVP mode accomplished. Basic framework." />
-    <option name="LAST_COMMIT_MESSAGE" value="PVP mode accomplished. Basic framework." />
+    <MESSAGE value="AI (Minimax Algorithm) implemented." />
+    <option name="LAST_COMMIT_MESSAGE" value="AI (Minimax Algorithm) implemented." />
   </component>
 </project>

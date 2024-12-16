@@ -1,50 +1,37 @@
-import GUI.Frame;
-
+import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
+        int firstOperator = 1;
+        int difficulty = 2;
+        boolean playWithAI = true;
+        /*
+        System.out.println("Console Main menu");
+        System.out.println("Blac+k first: 1");
+        System.out.println("White first: 2");
         Scanner input = new Scanner(System.in);
-        Algo app = new Algo();
-        int op = 1;
-        for (int i = 0; i < 100; ++i) {
-            if (op == 1) {
-                for (int j = 0; j < 100; ++j) { // player's move
-                    app.findValidPlace(op);
-                    app.feedback(op); //
-                    int x, y;
-                    x = input.nextInt();
-                    y = input.nextInt();
-                    if (app.validMoves.isEmpty()) {
-                        System.out.println("White wins");
-                        break;
-                    }
-                    if (app.placeChess(x, y, op)) {
-                        break;
-                    } else {
-                        System.out.println("Invalid attempt. Try again:");
-                    }
-                    app.clearPlayerOptions();
-                }
-            }
-            else { // AI's move
-                AI ai = new AI(app, 4);
-                Pair pos = ai.search(op,1);
-//                System.out.println(pos.getFt() + " " + pos.getSc() + " " + op);
-                ai.findValidPlace(op);
-                app.validMoves = new ArrayList<>(ai.validMoves);
-                if (app.validMoves.isEmpty()) {
-                    System.out.println("Black wins");
-                    break;
-                }
-                app.placeChess(pos.getFt(),pos.getSc(),op);
-            }
-            app.clearPlayerOptions();
-            op = op == 1 ? 2 : 1;
-            System.out.print("\033[H\033[2J");
-            System.out.flush();
+        firstOperator = input.nextInt();
+        System.out.println("Play with AI? A default AI uses white piece. Input Y or N : ");
+        playWithAI = input.next().equals("Y") ? true : false;
+        for ( ; ; ) {
+            System.out.println("Difficulty(1 to 3) : ");
+            difficulty = input.nextInt();
+            if (difficulty > 0 && difficulty < 4) break;
+            System.out.println("Invalid difficulty. Try again.");
         }
+*/
+        int finalDifficulty = difficulty;
+        SwingUtilities.invokeLater(() -> {
+            ReversiBoard board = new ReversiBoard(firstOperator, playWithAI, finalDifficulty +3);
+            board.currentOperator = firstOperator;
+            board.setVisible(true);
+        });
+    }
+    public static ArrayList<String> analyseCommand(String s) {
+        return new ArrayList<>(Arrays.asList(s.split(" ")));
     }
 }

@@ -1,19 +1,15 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class AI extends Algo {
     private final int[][] estimate = {
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0,500,-25, 10,  5,  5, 10,-25,500, 0},
-            {0,-25,-45,  1,  1,  1,  1,-45,-25, 0},
-            {0, 10,  1,  3,  2,  2,  3,  1, 10, 0},
-            {0,  5,  1,  2,  1,  1,  2,  1,  5, 0},
-            {0,  5,  1,  2,  1,  1,  2,  1,  5, 0},
-            {0, 10,  1,  3,  2,  2,  3,  1, 10, 0},
-            {0,-25,-45,  1,  1,  1,  1,-45,-25, 0},
-            {0,500,-25, 10,  5,  5, 10,-25,500, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {500,-25, 10,  5,  5, 10,-25,500},
+            {-25,-45,  1,  1,  1,  1,-45,-25},
+            { 10,  1,  3,  2,  2,  3,  1, 10},
+            {  5,  1,  2,  1,  1,  2,  1,  5},
+            {  5,  1,  2,  1,  1,  2,  1,  5},
+            { 10,  1,  3,  2,  2,  3,  1, 10},
+            {-25,-45,  1,  1,  1,  1,-45,-25},
+            {500,-25, 10,  5,  5, 10,-25,500},
     };
     private int targetDepth;
     private int[][] alpha = new int[10][10];
@@ -24,7 +20,7 @@ public class AI extends Algo {
         this.targetDepth = targetDepth;
     }
     public Pair search(int currentOperator, int currentDepth) { //
-        // Brute force for now
+        // Brute force for now(Minimax)
         validMoves.clear();
         findValidPlace(currentOperator);
         ArrayList<ValidMoves> currentValidMoves = new ArrayList<>(validMoves); // Current valid moves
@@ -60,10 +56,10 @@ public class AI extends Algo {
             ans = new Pair(0,0,32767);
         }
 
-        int[][] originMap = new int[10][10]; // whiteboard game map
+        int[][] originMap = new int[8][8]; // whiteboard game map
 //        validMoves = currentValidMoves;//
-        for (int i = 0; i < 10; ++i) {// copy array manually
-            for (int j = 0; j < 10; ++j)
+        for (int i = 0; i < 8; ++i) {// copy array manually
+            for (int j = 0; j < 8; ++j)
                 originMap[i][j] = map[i][j];
         }
         for (ValidMoves currentValidMove : currentValidMoves) {
@@ -84,8 +80,8 @@ public class AI extends Algo {
                     ans = new Pair(nx,ny,ansVal);
                 }
             }
-            for (int i = 0; i < 10; ++i) {// copy array manually
-                for (int j = 0; j < 10; ++j)
+            for (int i = 0; i < 8; ++i) {// copy array manually
+                for (int j = 0; j < 8; ++j)
                     map[i][j] = originMap[i][j];
             }
         }
@@ -95,13 +91,13 @@ public class AI extends Algo {
     @Override
     public void feedback(int op) {
         System.out.print("  ");
-        for (int i = 1; i <= 8; ++i) {
+        for (int i = 0; i < 8; ++i) {
             System.out.printf("y%d ",i);
         }
         System.out.println();
-        for (int i = 1; i <= 8; ++i) {
+        for (int i = 0; i < 8; ++i) {
             System.out.printf("x%d ",i);
-            for (int j = 1; j <= 8; ++j) {
+            for (int j = 0; j < 8; ++j) {
                 System.out.printf("%d  ",this.map[i][j]);
             }
             System.out.println();
