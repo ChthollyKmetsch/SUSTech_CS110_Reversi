@@ -162,6 +162,7 @@ public class Algo {
         if (historicalBoards.empty()) { return 0; }
         Saving tmpSaving = historicalBoards.peek();
         loadFromSaving(tmpSaving);
+        historicalBoards.pop();
         return tmpSaving.currentOperator;
     }
 

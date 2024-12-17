@@ -23,22 +23,29 @@ public class AI extends Algo {
         // Brute force for now(Minimax)
         validMoves.clear();
         findValidPlace(currentOperator);
-        ArrayList<ValidMoves> currentValidMoves = new ArrayList<>(validMoves); // Current valid moves
-        if (currentDepth >= targetDepth) {
+        ArrayList<ValidMoves> currentValidMoves = new ArrayList<>(validMoves);
+        if (currentDepth >= targetDepth) { // 搜到头
             int finalVal = 0;
             int finalX = 0, finalY = 0;
+            boolean firstMove = false;
             for (ValidMoves validMove : currentValidMoves) {
                 int x = validMove.x;
                 int y = validMove.y;
-                if (currentOperator == 1) {
-                    finalVal = -32767;
+                if (currentOperator == 1) { // Max node
+                    if (!firstMove) {
+                        finalVal = -32767;
+                        firstMove = true;
+                    }
                     if (estimate[x][y] > finalVal) {
                         finalVal = estimate[x][y];
                         finalX = x;
                         finalY = y;
                     }
-                } else {
-                    finalVal = 32767;
+                } else { // Min node
+                    if (!firstMove) {
+                        finalVal = 32767;
+                        firstMove = true;
+                    }
                     if (estimate[x][y] < finalVal) {
                         finalVal = estimate[x][y];
                         finalX = x;
@@ -48,6 +55,7 @@ public class AI extends Algo {
             }
             return new Pair(finalX,finalY,finalVal);
         }
+
         Pair ans;
         int ansVal = 0;
         if (currentOperator == 1) {
@@ -57,11 +65,11 @@ public class AI extends Algo {
         }
 
         int[][] originMap = new int[8][8]; // whiteboard game map
-//        validMoves = currentValidMoves;//
-        for (int i = 0; i < 8; ++i) {// copy array manually
+        for (int i = 0; i < 8; ++i) {// copy array manually, in case of soft copy
             for (int j = 0; j < 8; ++j)
                 originMap[i][j] = map[i][j];
         }
+
         for (ValidMoves currentValidMove : currentValidMoves) {
             int nx = currentValidMove.x;
             int ny = currentValidMove.y;
@@ -80,7 +88,8 @@ public class AI extends Algo {
                     ans = new Pair(nx,ny,ansVal);
                 }
             }
-            for (int i = 0; i < 8; ++i) {// copy array manually
+
+            for (int i = 0; i < 8; ++i) {// Return to the original situation manually
                 for (int j = 0; j < 8; ++j)
                     map[i][j] = originMap[i][j];
             }
@@ -104,6 +113,7 @@ public class AI extends Algo {
         }
         System.out.println();
     }
+
     @Override
     protected int idxOfNextMove(int x, int y) {
         return 32767;
