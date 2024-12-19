@@ -11,15 +11,13 @@ import java.util.Scanner;
     idx is the number of moves that the game has been through
  */
 public class Saving {
-    int[][] map;
-    int currentOperator;
+    public int[][] map = new int[8][8];
+    public int currentOperator;
 
     public Saving(int[][] map, int currentOperator) {
         for (int i = 0; i < 8; ++i) {
             for (int j = 0; j < 8; ++j) {
-                if (this.map != null) {
-                    this.map[i][j] = map[i][j];
-                }
+                this.map[i][j] = map[i][j];
             }
         }
         this.currentOperator = currentOperator;

@@ -9,22 +9,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7190c19b-eaa1-4dad-b512-ae9fc449429c" name="更改" comment="Packed JAR file">
+    <list default="true" id="7190c19b-eaa1-4dad-b512-ae9fc449429c" name="更改" comment="Rearrange the packages">
+      <change afterPath="$PROJECT_DIR$/src/GUI/MenuComponents/ExitButton.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/SoundPlayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/SUSTech_CS110_Reversi_jar/SUSTech_CS110_Reversi.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/SUSTech_CS110_Reversi_jar/SUSTech_CS110_Reversi.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Algo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Chess.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/RobotImage.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/blackPieceImage.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/whitePieceImage.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/yellowRingImage.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Input.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pair.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ReversiBoard.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Saving.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ValidMoves.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Algorithms/AI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Algorithms/AI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Algorithms/Algo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Algorithms/Algo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Algorithms/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Algorithms/Saving.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Algorithms/Saving.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/MenuComponents/WithdrawButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/MenuComponents/WithdrawButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/MenuComponents/fileMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/MenuComponents/fileMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/ReversiBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/ReversiBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/ReversiBoardFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/ReversiBoardFrame.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +73,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Admin/IdeaProjects/swing test",
+    "last_opened_file_path": "C:/Users/Admin/IdeaProjects/SUSTech_CS110_Reversi",
     "onboarding.tips.debug.path": "C:/Users/Admin/IdeaProjects/SUSTech_CS110_Reversi/src/Main.java",
     "project.structure.last.edited": "工件",
     "project.structure.proportion": "0.15",
@@ -166,7 +163,23 @@
       <option name="project" value="LOCAL" />
       <updated>1734421102973</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Rearrange the packages">
+      <option name="closed" value="true" />
+      <created>1734523135444</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1734523135444</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Rearrange the packages">
+      <option name="closed" value="true" />
+      <created>1734523204383</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1734523204383</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -186,6 +199,18 @@
     <MESSAGE value="AI (Minimax Algorithm) implemented." />
     <MESSAGE value="GUI and AI implemented. But still need a console to adjust play mode." />
     <MESSAGE value="Packed JAR file" />
-    <option name="LAST_COMMIT_MESSAGE" value="Packed JAR file" />
+    <MESSAGE value="Rearrange the packages" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rearrange the packages" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/GUI/ReversiBoard.java</url>
+          <line>87</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

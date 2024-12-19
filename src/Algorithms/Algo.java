@@ -7,20 +7,33 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.nio.file.FileAlreadyExistsException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Algo {
     protected final int[] dx = {1,1,1,0,0,-1,-1,-1};
     protected final int[] dy = {0,1,-1,1,-1,1,-1,0};
+
+    public static final int[][] initialBoard = {
+            {0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0},
+            {0,0,0,2,1,0,0,0},
+            {0,0,0,1,2,0,0,0},
+            {0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0},
+    };
+
     public int[][] map = new int[8][8];
-    public ArrayList<ValidMoves> validMoves = new ArrayList<ValidMoves>();
+    public ArrayList<ValidMoves> validMoves = new ArrayList<>();
     protected HashSet<ValidMoves> validMovesSet = new HashSet<>();
 
-    protected Stack<Saving> historicalBoards = new Stack<>();
+    public Stack<Saving> historicalBoards = new Stack<>();
 
     protected int numOfBlack = 2;
     protected int numOfWhite = 2;
-    protected int totPieces = 0;
+    protected int totPieces = 4;
 
     public Algo() { // Initialize the board
         this.map[3][3] = 2;
@@ -62,10 +75,12 @@ public class Algo {
         return idxOfValidMoves;
     }
 
-    public boolean placeChess(int x, int y, int currentOperator) {
+    public void placeChess(int x, int y, int currentOperator, boolean ai) {
         int idx = idxOfNextMove(x,y); // To check is the place valid and to find its index in the container
-        if (idx == -1) {
-            return false;
+
+        if (!ai) {
+            Saving historicalBoard = new Saving(map, currentOperator);
+            historicalBoards.add(historicalBoard);
         }
         map[x][y] = currentOperator;
         ArrayList<ValidMoves> tmp = expand(x,y,currentOperator,true);
@@ -77,17 +92,13 @@ public class Algo {
                 map[nx][ny] = currentOperator;
             }
         }
-
         if (currentOperator == 1) { numOfBlack++; }
         else { numOfWhite++; }
         totPieces++;
-        Saving historicalBoard = new Saving(map,currentOperator);
-        historicalBoards.add(historicalBoard);
-        return true;
     }
 
     public ArrayList<ValidMoves> expand(int x, int y, int currentOperator, boolean type) {
-        // type = 0 : finding possible next choices when placing chess piece
+        // type = 0 : finding possible next choices before placing chess piece
         // type = 1 : reversing chess pieces after placing chess piece
         ArrayList<ValidMoves> expandedMoves = new ArrayList<>();
         if (this.map[x][y] != currentOperator) return expandedMoves;
@@ -117,6 +128,7 @@ public class Algo {
         numOfBlack = 0;
         numOfWhite = 0;
         totPieces  = 0;
+//        historicalBoards.clear();
         for (int i = 0; i < 8; ++i) {
             for (int j = 0; j < 8; ++j) {
                 if (map[i][j] == 1) { ++numOfBlack; ++totPieces; }
@@ -128,28 +140,36 @@ public class Algo {
     public void saveToFile(int[][] map, int currentOperator, int idx)
             throws FileNotFoundException, FileAlreadyExistsException {
         Saving save = new Saving(map, currentOperator);
-        String saveName = LocalDateTime.now().toString();
+
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy_MMdd_HHmmss");
+        String saveName = now.format(formatter);
+
+        File directory = new File("saves");
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+
         File newFile = new File(String.format("/saves/%s.sav",saveName));
         if (newFile.exists()) {
             throw new FileAlreadyExistsException(saveName);
         }
 
         try (
-                PrintWriter output = new PrintWriter(String.format("/saves/%s.sav",saveName))
+                PrintWriter output = new PrintWriter(String.format("saves/%s.sav",saveName))
         ) {
             for (int i = 0 ; i < 8; ++i) {
                 for (int j = 0; j < 8; ++j) {
-                    output.print(map[i][j]);
+                    output.print(map[i][j] + " ");
                 }
                 output.println();
             }
             output.println(currentOperator);
-            output.println(idx);
             output.close();
         }
     }
 
-    public int loadFromSaving(Saving saving) throws Exception {
+    public int loadFromSaving(Saving saving) {
         clearPlayerOptions();
         for (int i = 0; i < 8; ++i) {
             for (int j = 0; j < 8; ++j) {
@@ -160,7 +180,7 @@ public class Algo {
         return saving.currentOperator;
     }
 
-    public int loadFromStack() throws Exception {
+    public int loadFromStack() {
         if (historicalBoards.empty()) { return 0; }
         Saving tmpSaving = historicalBoards.peek();
         loadFromSaving(tmpSaving);
@@ -212,5 +232,17 @@ public class Algo {
                     validMove.x, validMove.y);
         }
         System.out.printf("You are now playing as %s\n", op == 1 ? "BLACK(1)" : "WHITE(2)");
+    }
+
+    public int getTotPieces() {
+        return totPieces;
+    }
+
+    public int getWinner() {
+        if (numOfBlack == numOfWhite) {
+            return 0;
+        } else if (numOfBlack > numOfWhite) {
+            return 1;
+        } else { return 2; }
     }
 }

@@ -1,14 +1,28 @@
 package GUI.MenuComponents;
 
+import Algorithms.Algo;
+import GUI.ReversiBoard;
+import GUI.ReversiBoardFrame;
+import GUI.SoundPlayer;
+
 import javax.swing.*;
-import java.awt.*;
 
 public class WithdrawButton extends JButton {
-    public WithdrawButton(String s) {
-        super(s);
+    public WithdrawButton(Algo app, ReversiBoard board) {
+        super("悔棋");
+        this.setContentAreaFilled(false);
+        this.setBorderPainted(false);
         this.setSize(20,20);
         addActionListener(e -> {
-            JOptionPane.showMessageDialog(this, "withdrawal");
+            int tmpOperator = app.loadFromStack();
+            if (tmpOperator == 0) {
+                JOptionPane.showMessageDialog(board, "无法悔棋！", "错误", JOptionPane.ERROR_MESSAGE);
+            } else {
+                SoundPlayer.playSound("click_default.wav");
+                board.currentOperator = tmpOperator;
+                board.updateBoardWith(app);
+                board.repaint();
+            }
         });
     }
 }
