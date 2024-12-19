@@ -76,7 +76,7 @@ public class AI extends Algo {
             for (ValidMoves currentValidMove : currentValidMoves) {
                 int nx = currentValidMove.x;
                 int ny = currentValidMove.y;
-                placeChess(nx, ny, currentOperator);
+                placeChess(nx, ny, currentOperator, true);
                 Pair tmp = search(2, currentDepth+1, alpha, beta);
                 for (int i = 0; i < 8; ++i) { // Return to the original situation manually
                     for (int j = 0; j < 8; ++j)
@@ -92,7 +92,7 @@ public class AI extends Algo {
             for (ValidMoves currentValidMove : currentValidMoves) {
                 int nx = currentValidMove.x;
                 int ny = currentValidMove.y;
-                placeChess(nx, ny, currentOperator);
+                placeChess(nx, ny, currentOperator, true);
                 Pair tmp = search(1, currentDepth+1, alpha, beta);
                 for (int i = 0; i < 8; ++i) { // Return to the original situation manually
                     for (int j = 0; j < 8; ++j)

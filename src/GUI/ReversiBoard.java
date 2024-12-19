@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
+
 import Algorithms.*;
 
 public class ReversiBoard extends JPanel {
@@ -24,6 +26,7 @@ public class ReversiBoard extends JPanel {
     int getx, gety;
 
     private Algo app = new Algo();
+    private java.util.Queue<Runnable> tasks = new LinkedList<>();
 
     public ReversiBoard(int firstOperator, boolean ai, int searchDepth) {
         playWithAI = ai;
@@ -45,11 +48,12 @@ public class ReversiBoard extends JPanel {
                 int col = x / TILE_SIZE;
                 int row = y / TILE_SIZE;
 
+
                 if (!playWithAI) { // multiplayer mode
                     if (col >= 0 && col < BOARD_SIZE &&
                             row >= 0 && row < BOARD_SIZE &&
                             board[row][col] == 0 && app.isNextMoveValid(row, col)) { // Verify blank and in-range
-                        app.placeChess(row, col, currentOperator);
+                        app.placeChess(row, col, currentOperator, false);
                         for (int i = 0; i < 8; ++i) { // Update the chess board
                             for (int j = 0; j < 8; ++j) {
                                 board[i][j] = app.map[i][j];
@@ -64,16 +68,15 @@ public class ReversiBoard extends JPanel {
                             col >= 0 && col < BOARD_SIZE &&
                             row >= 0 && row < BOARD_SIZE &&
                             board[row][col] == 0 && app.isNextMoveValid(row, col)) { // Verify blank and in-range and player's move
-                        app.placeChess(row, col, currentOperator);
-                        for (int i = 0; i < 8; ++i) { // Update the chess board
-                            for (int j = 0; j < 8; ++j) {
-                                board[i][j] = app.map[i][j];
-                            }
-                        }
+                        app.placeChess(row, col, currentOperator, false);
+                        updateBoardWith(app);
                         SwingUtilities.invokeLater(() -> {
-                            repaint(); // 更新下黑棋之后的棋盘状态，但不更新AI下一步的提示
+                            repaint(); // 更新下黑棋之后的棋盘状态，且同时更新AI下一步的提示
                         });
                         currentOperator = currentOperator == 1 ? 2 : 1; // reverse the operator
+                        // play sound
+                        SoundPlayer.playRandomSound("/sound/place_chess/");
+
                         SwingUtilities.invokeLater(() -> {
                             // Next AI's move
                             AI ai1 = new AI(app, searchDepth);
@@ -82,34 +85,75 @@ public class ReversiBoard extends JPanel {
                             gety = pos.getSc();
                             ai1.findValidPlace(currentOperator);
                             app.validMoves = new ArrayList<>(ai1.validMoves);
-                            app.placeChess(getx,gety, currentOperator);
-                            SwingUtilities.invokeLater(() -> {
-                                Timer timer = new Timer(DELAY_TIME, new ActionListener() {
-                                    @Override
-                                    public void actionPerformed(ActionEvent e1) {
-                                        System.out.println("x = " + getx);
-                                        System.out.println("y = " + gety);
-                                        repaint();
-                                    }
+                            app.placeChess(getx,gety, currentOperator, true);
+//                            SwingUtilities.invokeLater(() -> repaint());
+                            SwingUtilities.invokeLater(() -> { // 不要动它：我也不知道问什么这里为什么会 repaint 两次
+                                Timer timer = new Timer(DELAY_TIME, e1 -> {
+                                    repaint();
                                 });
                                 timer.setRepeats(false);
                                 timer.start();
-                                for (int i = 0; i < 8; ++i) { // Update the chess board
-                                    for (int j = 0; j < 8; ++j) {
-                                        board[i][j] = app.map[i][j];
-                                    }
-                                }
+                                updateBoardWith(app);
                                 currentOperator = currentOperator == 1 ? 2 : 1;
                                 app.clearPlayerOptions();
                             });
+
+                            /*
+                            app.findValidPlace(currentOperator == 1 ? 2 : 1); // Predict next player's move
+                            while (app.validMoves.isEmpty()) { // Player can't move
+                                AI ai2 = new AI(app, searchDepth);
+                                ai2.findValidPlace(currentOperator);
+                                if (ai2.validMoves.isEmpty()) { // AI can't move, too. Game end.
+                                    int winner = app.getWinner();
+                                    if (winner == 0) {
+                                        JOptionPane.showMessageDialog(ReversiBoard.this, "Draw");
+                                    } else if (winner == 1) {
+                                        JOptionPane.showMessageDialog(ReversiBoard.this, "Black wins!");
+                                    } else {
+                                        JOptionPane.showMessageDialog(ReversiBoard.this, "White wins!");
+                                    }
+
+                                    try {
+                                        Saving tmp = new Saving(Algo.initialBoard, currentOperator);
+                                        app.loadFromSaving(tmp);
+                                        app.historicalBoards.clear();
+                                        currentOperator = tmp.currentOperator;
+                                        updateBoardWith(app);
+                                        repaint();
+                                    } catch (Exception ex) {
+                                        throw new RuntimeException(ex);
+                                    }
+
+                                } else { // But AI can move, repeat AI's search
+                                    AI ai3 = new AI(app, searchDepth);
+                                    pos = ai1.search(currentOperator,1,-AI.INF,AI.INF);
+                                    getx = pos.getFt();
+                                    gety = pos.getSc();
+                                    ai1.findValidPlace(currentOperator);
+                                    app.validMoves = new ArrayList<>(ai1.validMoves);
+                                    app.placeChess(getx,gety, currentOperator, true);
+                                    SwingUtilities.invokeLater(() -> {
+                                        Timer timer = new Timer(DELAY_TIME, e1 -> {
+                                            repaint();
+                                        });
+                                        timer.setRepeats(false);
+                                        timer.start();
+                                        updateBoardWith(app);
+                                        currentOperator = currentOperator == 1 ? 2 : 1;
+                                        app.clearPlayerOptions();
+                                    });
+                                }
+                                app.validMoves.clear();
+                                app.findValidPlace(currentOperator == 1 ? 2 : 1);
+                            }
+                            app.validMoves.clear();
+                            */
+
                         });
                     }
                 }
             }
         });
-
-
-
     }
 
     // 初始化棋盘，设置初始的4个棋子
@@ -122,12 +166,10 @@ public class ReversiBoard extends JPanel {
         repaint();
     }
 
-
-
     // 绘制棋盘和棋子
     @Override
-    public void paint(Graphics g) {
-        super.paint(g);
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
 
         // 获取窗口的边距（用于确保棋盘绘制不会被标题栏挡住）
         Insets insets = getInsets();
@@ -168,6 +210,15 @@ public class ReversiBoard extends JPanel {
         }
 //        app.clearPlayerOptions();
     }
-
+    public Algo getApp() {
+        return app;
+    }
+    public void updateBoardWith(Algo algo) {
+        for (int i = 0; i < 8; ++i) { // Update the chess board
+            for (int j = 0; j < 8; ++j) {
+                board[i][j] = algo.map[i][j];
+            }
+        }
+    }
 
 }
