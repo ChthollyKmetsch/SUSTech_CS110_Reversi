@@ -89,20 +89,17 @@ public class ReversiBoard extends JPanel {
                             }
                             System.out.println();
                         }
-                        paintImmediately(RECTANGLE);
-
-//                        ai1.findValidPlace(currentOperator);
-//                        app.validMoves = new ArrayList<>(ai1.validMoves);
+                        paintImmediately(RECTANGLE); // Update the robot icon
                         app.placeChess(getx, gety, currentOperator, true);
 
-
-                        Timer timer1 = new Timer(DELAY_TIME, e1 -> {
+                        Timer timer1 = new Timer(DELAY_TIME, e1 -> { // Update the chess board
                             paintImmediately(RECTANGLE);
                             currentOperator = currentOperator == 1 ? 2 : 1;
                         });
                         updateBoardWith(app);
                         timer1.setRepeats(false);
                         timer1.start();
+
                         app.clearPlayerOptions();
                         app.findValidPlace(currentOperator == 1 ? 2 : 1); // Predict next player's move
                         while (app.validMoves.isEmpty()) { // Player can't move
