@@ -137,26 +137,32 @@ public class Algo {
         }
     }
 
-    public void saveToFile(int[][] map, int currentOperator, int idx)
+    public void saveToFile(int[][] map, int currentOperator, int idx, boolean ai)
             throws FileNotFoundException, FileAlreadyExistsException {
-        Saving save = new Saving(map, currentOperator);
-
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy_MMdd_HHmmss");
         String saveName = now.format(formatter);
+        String tmpName;
 
         File directory = new File("saves");
         if (!directory.exists()) {
             directory.mkdir();
         }
-
-        File newFile = new File(String.format("/saves/%s.sav",saveName));
+        File directory2 = new File("mp_saves");
+        if (!directory.exists()) {
+            directory2.mkdir();
+        }
+        if (ai) {
+            tmpName = String.format("saves/%s.sav", saveName);
+        } else {
+            tmpName = String.format("mp_saves/%s.sav", saveName);
+        }
+        File newFile = new File(tmpName);
         if (newFile.exists()) {
             throw new FileAlreadyExistsException(saveName);
         }
-
         try (
-                PrintWriter output = new PrintWriter(String.format("saves/%s.sav",saveName))
+                PrintWriter output = new PrintWriter(tmpName)
         ) {
             for (int i = 0 ; i < 8; ++i) {
                 for (int j = 0; j < 8; ++j) {

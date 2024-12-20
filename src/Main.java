@@ -22,7 +22,6 @@ public class Main {
             System.out.println("Invalid difficulty. Try again.");
         }
 */
-        ReversiBoardFrame frame = new ReversiBoardFrame(firstOperator, playWithAI, difficulty);
-        frame.setVisible(true);
+        TempCallFrame tempCallFrame = new TempCallFrame(firstOperator, difficulty);
     }
 }

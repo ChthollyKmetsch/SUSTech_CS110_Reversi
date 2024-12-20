@@ -10,15 +10,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7190c19b-eaa1-4dad-b512-ae9fc449429c" name="更改" comment="Fuxking repaint">
-      <change afterPath="$PROJECT_DIR$/src/GUI/MenuComponents/GeneralStatePanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/TempCallFrame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Algorithms/AI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Algorithms/AI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/SUSTech_CS110_Reversi_jar/SUSTech_CS110_Reversi.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/SUSTech_CS110_Reversi_jar/SUSTech_CS110_Reversi.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Algorithms/Algo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Algorithms/Algo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/MenuComponents/WithdrawButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/MenuComponents/WithdrawButton.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/MenuComponents/fileMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/MenuComponents/fileMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/ReversiBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/ReversiBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/ReversiBoardFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/ReversiBoardFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/SoundPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/SoundPlayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Utility/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utility/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sound/music/theme_2.wav" beforeDir="false" afterPath="$PROJECT_DIR$/src/sound/music/theme_2.wav" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +77,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "dev",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Admin/IdeaProjects/SUSTech_CS110_Reversi",
+    "last_opened_file_path": "C:/Users/Admin/IdeaProjects/swing test",
     "onboarding.tips.debug.path": "C:/Users/Admin/IdeaProjects/SUSTech_CS110_Reversi/src/Main.java",
     "project.structure.last.edited": "工件",
     "project.structure.proportion": "0.15",

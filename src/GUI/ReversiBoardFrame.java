@@ -11,7 +11,9 @@ import java.io.IOException;
 import static Utility.Constants.*;
 
 public class ReversiBoardFrame extends JFrame {
+    public final boolean finalPlayWithAI;
     public ReversiBoardFrame(int firstOperator, boolean playWithAI, int difficulty) {
+        finalPlayWithAI = playWithAI;
         setSize(BOARD_SIZE*TILE_SIZE+10,BOARD_SIZE*TILE_SIZE+MENUBAR_HEIGHT+40);
         setTitle("黑白棋");
         setResizable(false);
@@ -43,6 +45,8 @@ public class ReversiBoardFrame extends JFrame {
 
         this.add(board);
         this.setJMenuBar(menuBar);
+
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
         SoundPlayer.playRandomMusic("/sound/music/");
     }

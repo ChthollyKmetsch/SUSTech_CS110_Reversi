@@ -20,11 +20,11 @@ public class fileMenu extends JMenu {
     JMenuItem loadItem = new JMenuItem("读档");
     JMenuItem deleteItem = new JMenuItem("管理存档");
 
-    public fileMenu(JFrame owner, Algo algo, ReversiBoard board) {
+    public fileMenu(ReversiBoardFrame owner, Algo algo, ReversiBoard board) {
         super("文件");
         saveItem.addActionListener(e -> {
             try {
-                algo.saveToFile(algo.map, board.currentOperator, algo.getTotPieces());
+                algo.saveToFile(algo.map, board.currentOperator, algo.getTotPieces(), owner.finalPlayWithAI);
                 SoundPlayer.playSound("click_default.wav");
             } catch (FileNotFoundException | FileAlreadyExistsException ex) {
                 throw new RuntimeException(ex);
@@ -37,8 +37,13 @@ public class fileMenu extends JMenu {
             frame.setSize(300, 400);
             frame.setLayout(new BorderLayout());
             frame.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+            String folderPath;
 
-            String folderPath = "saves";
+            if (owner.finalPlayWithAI) {
+                folderPath = "saves";
+            } else {
+                folderPath = "mp_saves";
+            }
 
             DefaultListModel<String> listModel = new DefaultListModel<>();
             JList<String> fileList = new JList<>(listModel);
@@ -91,8 +96,13 @@ public class fileMenu extends JMenu {
             frame.setLayout(new BorderLayout());
             frame.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
             frame.setLocationRelativeTo(this);
+            String folderPath;
 
-            String folderPath = "saves";
+            if (owner.finalPlayWithAI) {
+                folderPath = "saves";
+            } else {
+                folderPath = "mp_saves";
+            }
 
             DefaultListModel<String> listModel = new DefaultListModel<>();
             JList<String> fileList = new JList<>(listModel);

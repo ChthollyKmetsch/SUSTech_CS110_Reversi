@@ -22,7 +22,7 @@ public class SoundPlayer {
         }
     }
 
-    public static void playMusic(String musicFileName) {
+    public static Clip playMusic(String musicFileName) {
         musicFileName = "/sound/music/" + musicFileName;
 
         try (InputStream inputStream = SoundPlayer.class.getResourceAsStream(musicFileName)) {
@@ -34,9 +34,11 @@ public class SoundPlayer {
             Clip clip = AudioSystem.getClip();
             clip.open(audioStream);
             clip.start();
+            return clip;
         } catch (Exception e) {
             System.out.println("Audio error.");
         }
+        return null;
     }
 
     public static void playRandomSound(String DirName) {

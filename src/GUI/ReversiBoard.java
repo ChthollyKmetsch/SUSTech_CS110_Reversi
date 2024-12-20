@@ -23,6 +23,7 @@ public class ReversiBoard extends JPanel {
     private Image whitePieceImage = new ImageIcon(getClass().getResource("/GUI/img/whitePieceImage.png")).getImage();
     private Image yellowRingImage = new ImageIcon(getClass().getResource("/GUI/img/yellowRingImage.png")).getImage();
     private Image RobotImage = new ImageIcon(getClass().getResource("/GUI/img/RobotImage.png")).getImage();
+    private Image backgroundImage = new ImageIcon(getClass().getResource("/GUI/img/war.png")).getImage();
     private Algo app = new Algo();
 
     public ReversiBoard(int firstOperator, boolean ai, int searchDepth) {
@@ -47,13 +48,12 @@ public class ReversiBoard extends JPanel {
                 int col = x / TILE_SIZE;
                 int row = y / TILE_SIZE;
 
-
                 if (!playWithAI) { // multiplayer mode
                     if (col >= 0 && col < BOARD_SIZE &&
                             row >= 0 && row < BOARD_SIZE &&
                             board[row][col] == 0 && app.isNextMoveValid(row, col)) { // Verify blank and in-range
-
                         app.placeChess(row, col, currentOperator, false);
+                        SoundPlayer.playSound("click_mp.wav");
 
                         updateBoardWith(app);
                         currentOperator = currentOperator == 1 ? 2 : 1; // Change current player
@@ -65,6 +65,7 @@ public class ReversiBoard extends JPanel {
                                 int winner = app.getWinner();
                                 int tot = app.getTotPieces();
                                 repaintWithYellowRing();
+                                SoundPlayer.playSound("game_over.wav");
                                 if (winner == 0 && tot != 64) {
                                     JOptionPane.showMessageDialog(ReversiBoard.this, "Neither Can't move. Draw!");
                                 } else if (winner == 1 && tot != 64) {
@@ -83,7 +84,7 @@ public class ReversiBoard extends JPanel {
                                     app.loadFromSaving(tmp);
                                     app.historicalBoards.clear();
                                     updateBoardWith(app);
-                                    repaintWithYellowRing(DELAY_TIME);
+                                    repaintWithYellowRing();
                                 } catch (Exception ex) {
                                     throw new RuntimeException(ex);
                                 }
@@ -124,6 +125,7 @@ public class ReversiBoard extends JPanel {
                                 int winner = app.getWinner();
                                 int tot = app.getTotPieces();
                                 repaintWithYellowRing();
+                                SoundPlayer.playSound("game_over.wav");
                                 if (winner == 0 && tot != 64) {
                                     JOptionPane.showMessageDialog(ReversiBoard.this, "Neither Can't move. Draw!");
                                 } else if (winner == 1 && tot != 64) {
@@ -137,13 +139,12 @@ public class ReversiBoard extends JPanel {
                                 } else if (winner == 2) {
                                     JOptionPane.showMessageDialog(ReversiBoard.this, "White wins!");
                                 }
-
                                 try { // Read a new game
                                     Saving tmp = new Saving(Algo.initialBoard, humanOperator);
                                     app.loadFromSaving(tmp);
                                     app.historicalBoards.clear();
                                     updateBoardWith(app);
-                                    repaintWithYellowRing(DELAY_TIME);
+                                    repaintWithYellowRing();
                                 } catch (Exception ex) {
                                     throw new RuntimeException(ex);
                                 }
@@ -155,7 +156,6 @@ public class ReversiBoard extends JPanel {
 
                                 repaintWithRobot();
                                 app.placeChess(getx, gety, AIOperator, true);
-                                System.out.println("114");
                                 repaintWithYellowRing(DELAY_TIME);
                             }
                             app.validMoves.clear();
@@ -191,7 +191,8 @@ public class ReversiBoard extends JPanel {
         int yOffset = 0;
         // 设置棋盘背景颜色
         g.setColor(Color.LIGHT_GRAY);  // 设置背景颜色为浅灰色
-        g.fillRect(xOffset, yOffset, BOARD_SIZE * TILE_SIZE, BOARD_SIZE * TILE_SIZE);  // 填充背景
+//        g.fillRect(xOffset, yOffset, BOARD_SIZE * TILE_SIZE, BOARD_SIZE * TILE_SIZE);  // 填充背景
+        g.drawImage(backgroundImage, 0, 0, WINDOWS_WIDTH, WINDOWS_HEIGHT, this);
 
         // 绘制棋盘的格子
         g.setColor(Color.BLACK);
@@ -282,7 +283,6 @@ public class ReversiBoard extends JPanel {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("514");
 //        Timer timer1 = new Timer(delayTime, e1 -> {
             updateBoardWith(app);
             paintImmediately(FULL_SCREEN_RECTANGLE);
