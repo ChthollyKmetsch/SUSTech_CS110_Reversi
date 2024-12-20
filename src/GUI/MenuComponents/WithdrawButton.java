@@ -21,7 +21,7 @@ public class WithdrawButton extends JButton {
                 SoundPlayer.playSound("click_default.wav");
                 board.currentOperator = tmpOperator;
                 board.updateBoardWith(app);
-                board.repaint();
+                board.repaintWithYellowRing();
             }
         });
     }

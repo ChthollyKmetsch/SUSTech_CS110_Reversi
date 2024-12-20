@@ -61,9 +61,9 @@ public class AI extends Algo {
         Pair ans;
         int ansVal = 0;
         if (currentOperator == 1) {
-            ans = new Pair(114,514,-INF);
+            ans = new Pair(1,2,-INF);
         } else {
-            ans = new Pair(114,514,INF);
+            ans = new Pair(1,2,INF);
         }
 
         int[][] originMap = new int[8][8]; // whiteboard game map

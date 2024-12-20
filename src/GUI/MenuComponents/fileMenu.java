@@ -72,7 +72,7 @@ public class fileMenu extends JMenu {
                                 algo.historicalBoards.clear();
                                 board.currentOperator = tmp.currentOperator;
                                 board.updateBoardWith(algo);
-                                board.repaint();
+                                board.repaintWithYellowRing();
                             } catch (Exception ex) {
                                 throw new RuntimeException(ex);
                             }

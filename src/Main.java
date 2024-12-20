@@ -5,9 +5,9 @@ public class Main {
     public static void main(String[] args) throws IOException {
         int firstOperator = 1;
         int difficulty = 8;
-        boolean playWithAI = true;
-        /*\
+        boolean playWithAI = false;
 
+        /*
         System.out.println("Console Main menu");
         System.out.println("Blac+k first: 1");
         System.out.println("White first: 2");

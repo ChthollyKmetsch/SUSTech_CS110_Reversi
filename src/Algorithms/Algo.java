@@ -235,10 +235,24 @@ public class Algo {
     }
 
     public int getTotPieces() {
+        totPieces = 0;
+        for (int i = 0; i < 8; ++i) {
+            for (int j = 0; j < 8; ++j) {
+                if (map[i][j] != 0) { totPieces++; }
+            }
+        }
         return totPieces;
     }
 
     public int getWinner() {
+        numOfBlack = 0;
+        numOfWhite = 0;
+        for (int i = 0; i < 8; ++i) {
+            for (int j = 0; j < 8; ++j) {
+                if (map[i][j] == 1) { numOfBlack++; }
+                else if (map[i][j] == 2) { numOfWhite++; }
+            }
+        }
         if (numOfBlack == numOfWhite) {
             return 0;
         } else if (numOfBlack > numOfWhite) {

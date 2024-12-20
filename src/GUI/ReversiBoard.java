@@ -3,18 +3,20 @@ package GUI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
 
 import Algorithms.*;
 import static Utility.Constants.*;
 
 public class ReversiBoard extends JPanel {
 
-    public int currentOperator = 1; // 1 is black, 2 is white
+    public int currentOperator; // 1 is black, 2 is white
     public int AIOperator;
+    public int humanOperator;
     boolean playWithAI;
     int getx, gety;
+
+    boolean isPaintYellowRing = true;
+    boolean isPaintRobot = false;
 
     private int[][] board = new int[BOARD_SIZE][BOARD_SIZE];  // 棋盘状态，0为空，1为黑棋，2为白棋
     private Image blackPieceImage = new ImageIcon(getClass().getResource("/GUI/img/blackPieceImage.png")).getImage();
@@ -27,6 +29,7 @@ public class ReversiBoard extends JPanel {
         playWithAI = ai;
         currentOperator = firstOperator;
         AIOperator = firstOperator == 1 ? 2 : 1;
+        humanOperator = AIOperator == 1 ? 2 : 1;
 
         int windowWidth = BOARD_SIZE * TILE_SIZE;
         int windowHeight = BOARD_SIZE * TILE_SIZE + INSET + MENUBAR_HEIGHT;
@@ -49,107 +52,119 @@ public class ReversiBoard extends JPanel {
                     if (col >= 0 && col < BOARD_SIZE &&
                             row >= 0 && row < BOARD_SIZE &&
                             board[row][col] == 0 && app.isNextMoveValid(row, col)) { // Verify blank and in-range
+
                         app.placeChess(row, col, currentOperator, false);
-                        for (int i = 0; i < 8; ++i) { // Update the chess board
-                            for (int j = 0; j < 8; ++j) {
-                                board[i][j] = app.map[i][j];
+
+                        updateBoardWith(app);
+                        currentOperator = currentOperator == 1 ? 2 : 1; // Change current player
+                        repaintWithYellowRing();
+                        if (app.validMoves.isEmpty()) { // Next player can't move
+                            currentOperator = currentOperator == 1 ? 2 : 1; // Back to this player
+                            app.findValidPlace(currentOperator);
+                            if (app.validMoves.isEmpty()) { // Another player can't either move. Game end.
+                                int winner = app.getWinner();
+                                int tot = app.getTotPieces();
+                                repaintWithYellowRing();
+                                if (winner == 0 && tot != 64) {
+                                    JOptionPane.showMessageDialog(ReversiBoard.this, "Neither Can't move. Draw!");
+                                } else if (winner == 1 && tot != 64) {
+                                    JOptionPane.showMessageDialog(ReversiBoard.this, "Neither Can't move. Black wins!");
+                                } else if (winner == 2 && tot != 64) {
+                                    JOptionPane.showMessageDialog(ReversiBoard.this, "Neither Can't move. White wins!");
+                                } else if (winner == 0) {
+                                    JOptionPane.showMessageDialog(ReversiBoard.this, "Draw");
+                                } else if (winner == 1) {
+                                    JOptionPane.showMessageDialog(ReversiBoard.this, "Black wins!");
+                                } else if (winner == 2) {
+                                    JOptionPane.showMessageDialog(ReversiBoard.this, "White wins!");
+                                }
+                                try { // Read a new game
+                                    Saving tmp = new Saving(Algo.initialBoard, humanOperator);
+                                    app.loadFromSaving(tmp);
+                                    app.historicalBoards.clear();
+                                    updateBoardWith(app);
+                                    repaintWithYellowRing(DELAY_TIME);
+                                } catch (Exception ex) {
+                                    throw new RuntimeException(ex);
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(ReversiBoard.this, "Next player can't move, back to this player!");
+                                repaintWithYellowRing();
                             }
                         }
-
-                        repaint();
-                        currentOperator = currentOperator == 1 ? 2 : 1;
                     }
                 } else { // Play-with-AI mode
-                    if (currentOperator == 1 &&
+                    if (currentOperator == humanOperator &&
                             col >= 0 && col < BOARD_SIZE &&
                             row >= 0 && row < BOARD_SIZE &&
                             board[row][col] == 0 && app.isNextMoveValid(row, col)) { // Verify blank and in-range and player's move
-                        app.placeChess(row, col, currentOperator, false);
-                        updateBoardWith(app);
-                        currentOperator = currentOperator == 1 ? 2 : 1; // reverse the operator
+                        app.placeChess(row, col, humanOperator, false);
                         SoundPlayer.playRandomSound("/sound/place_chess/"); // play sound
 
+                        currentOperator = humanOperator;
                         // Next AI's move
                         AI ai1 = new AI(app, searchDepth);
-                        Pair pos = ai1.search(currentOperator, 1, -AI.INF, AI.INF);
+                        Pair pos = ai1.search(AIOperator, 1, -AI.INF, AI.INF);
 
                         getx = pos.getFt();
                         gety = pos.getSc();
 
-                        for (int i = 0; i < 8; ++i) {
-                            for (int j = 0; j < 8; ++j) {
-                                System.out.print(board[i][j]);
-                            }
-                            System.out.println();
-                        }
-
-                        for (int i = 0; i < 8; ++i) {
-                            for (int j = 0; j < 8; ++j) {
-                                System.out.print(board[i][j]);
-                            }
-                            System.out.println();
-                        }
-                        paintImmediately(RECTANGLE); // Update the robot icon
-                        app.placeChess(getx, gety, currentOperator, true);
-
-                        Timer timer1 = new Timer(DELAY_TIME, e1 -> { // Update the chess board
-                            paintImmediately(RECTANGLE);
-                            currentOperator = currentOperator == 1 ? 2 : 1;
-                        });
                         updateBoardWith(app);
-                        timer1.setRepeats(false);
-                        timer1.start();
-
+                        repaintWithRobot();
+                        app.placeChess(getx, gety, AIOperator, true);
                         app.clearPlayerOptions();
-                        app.findValidPlace(currentOperator == 1 ? 2 : 1); // Predict next player's move
+
+                        app.findValidPlace(humanOperator); // Predict next player's move
+                        int loopTime = 0;
+
                         while (app.validMoves.isEmpty()) { // Player can't move
                             AI ai2 = new AI(app, searchDepth);
-                            ai2.findValidPlace(currentOperator);
+                            ai2.findValidPlace(AIOperator);
                             if (ai2.validMoves.isEmpty()) { // AI can't move, too. Game end.
                                 int winner = app.getWinner();
-                                if (winner == 0) {
+                                int tot = app.getTotPieces();
+                                repaintWithYellowRing();
+                                if (winner == 0 && tot != 64) {
+                                    JOptionPane.showMessageDialog(ReversiBoard.this, "Neither Can't move. Draw!");
+                                } else if (winner == 1 && tot != 64) {
+                                    JOptionPane.showMessageDialog(ReversiBoard.this, "Neither Can't move. Black wins!");
+                                } else if (winner == 2 && tot != 64) {
+                                    JOptionPane.showMessageDialog(ReversiBoard.this, "Neither Can't move. White wins!");
+                                } else if (winner == 0) {
                                     JOptionPane.showMessageDialog(ReversiBoard.this, "Draw");
                                 } else if (winner == 1) {
                                     JOptionPane.showMessageDialog(ReversiBoard.this, "Black wins!");
-                                } else {
+                                } else if (winner == 2) {
                                     JOptionPane.showMessageDialog(ReversiBoard.this, "White wins!");
                                 }
 
-                                try {
-                                    Saving tmp = new Saving(Algo.initialBoard, currentOperator);
+                                try { // Read a new game
+                                    Saving tmp = new Saving(Algo.initialBoard, humanOperator);
                                     app.loadFromSaving(tmp);
                                     app.historicalBoards.clear();
-                                    currentOperator = tmp.currentOperator;
                                     updateBoardWith(app);
-                                    paintImmediately(RECTANGLE);
+                                    repaintWithYellowRing(DELAY_TIME);
                                 } catch (Exception ex) {
                                     throw new RuntimeException(ex);
                                 }
 
                             } else { // But AI can move, repeat AI's search
-                                System.out.println("human o, AI x");
-                                pos = ai2.search(currentOperator, 1, -AI.INF, AI.INF);
+                                pos = ai2.search(AIOperator, 1, -AI.INF, AI.INF);
                                 getx = pos.getFt();
                                 gety = pos.getSc(); // 获取 AI 行动提示标志坐标，以便 repaint
-                                SwingUtilities.invokeLater(() -> repaint());
-                                app.validMoves = new ArrayList<>(ai2.validMoves);
-                                app.placeChess(getx, gety, currentOperator, true);
-                                SwingUtilities.invokeLater(() -> {
-                                    updateBoardWith(app);
-                                    Timer timer2 = new Timer(DELAY_TIME, e1 -> {
-                                        paintImmediately(RECTANGLE);
-                                    });
-                                    timer2.setRepeats(false);
-                                    timer2.start();
-                                });
+
+                                repaintWithRobot();
+                                app.placeChess(getx, gety, AIOperator, true);
+                                System.out.println("114");
+                                repaintWithYellowRing(DELAY_TIME);
                             }
                             app.validMoves.clear();
-                            app.findValidPlace(currentOperator == 1 ? 2 : 1);
+                            app.findValidPlace(humanOperator);
                         }
-                        app.validMoves.clear();
-                        currentOperator = currentOperator == 1 ? 2 : 1;
-                        app.clearPlayerOptions();
+//                        app.clearPlayerOptions();
+                        repaintWithYellowRing(DELAY_TIME);
                     }
+                    currentOperator = humanOperator;
                 }
             }
         });
@@ -201,11 +216,12 @@ public class ReversiBoard extends JPanel {
         // Paint visual hints for valid moves
         app.validMoves.clear();
         app.findValidPlace(currentOperator);
-        if (!playWithAI || currentOperator != AIOperator) {
+        if (isPaintYellowRing) {
             for (ValidMoves i : app.validMoves) {
                 g.drawImage(yellowRingImage, xOffset + i.y * TILE_SIZE + 5, xOffset + i.x * TILE_SIZE + 5, TILE_SIZE - 10, TILE_SIZE - 10, this);
             }
-        } else {
+        }
+        if (isPaintRobot){
             g.drawImage(RobotImage, xOffset + gety * TILE_SIZE + 5, xOffset + getx * TILE_SIZE + 5, TILE_SIZE - 10, TILE_SIZE - 10, this);
         }
 //        app.clearPlayerOptions();
@@ -228,4 +244,52 @@ public class ReversiBoard extends JPanel {
         else return 1;
     }
 
+    public void repaintWithRobot() {
+        isPaintRobot = true;
+        isPaintYellowRing = false;
+        paintImmediately(FULL_SCREEN_RECTANGLE); // Update the robot icon
+        isPaintRobot = false;
+        isPaintYellowRing = true;
+    }
+
+    public void repaintWithRobot(int delayTime) {
+        isPaintRobot = true;
+        isPaintYellowRing = false;
+        Timer timer1 = new Timer(delayTime, e1 -> {
+            paintImmediately(FULL_SCREEN_RECTANGLE); // Update the robot icon
+            isPaintRobot = false;
+            isPaintYellowRing = true;
+        });
+        timer1.setRepeats(false);
+        timer1.start();
+    }
+
+    public void repaintWithYellowRing() {
+        isPaintYellowRing = true;
+        isPaintRobot = false;
+        updateBoardWith(app);
+        paintImmediately(FULL_SCREEN_RECTANGLE);
+        isPaintYellowRing = false;
+        isPaintRobot = false;
+    }
+
+    public void repaintWithYellowRing(int delayTime) {
+        isPaintYellowRing = true;
+        isPaintRobot = false;
+
+        try {
+            Thread.sleep(delayTime);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("514");
+//        Timer timer1 = new Timer(delayTime, e1 -> {
+            updateBoardWith(app);
+            paintImmediately(FULL_SCREEN_RECTANGLE);
+            isPaintYellowRing = false;
+            isPaintRobot = false;
+//        });
+//        timer1.setRepeats(false);
+//        timer1.start();
+    }
 }

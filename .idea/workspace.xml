@@ -9,11 +9,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7190c19b-eaa1-4dad-b512-ae9fc449429c" name="更改" comment="Music and sound effect">
-      <change afterPath="$PROJECT_DIR$/src/Utility/Constants.java" afterDir="false" />
+    <list default="true" id="7190c19b-eaa1-4dad-b512-ae9fc449429c" name="更改" comment="Fuxking repaint">
+      <change afterPath="$PROJECT_DIR$/src/GUI/MenuComponents/GeneralStatePanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Algorithms/AI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Algorithms/AI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Algorithms/Algo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Algorithms/Algo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/MenuComponents/WithdrawButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/MenuComponents/WithdrawButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/MenuComponents/fileMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/MenuComponents/fileMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/ReversiBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/ReversiBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/ReversiBoardFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/ReversiBoardFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utility/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utility/Constants.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -208,7 +213,23 @@
       <option name="project" value="LOCAL" />
       <updated>1734620056819</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Fuxking repaint">
+      <option name="closed" value="true" />
+      <created>1734693388237</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1734693388237</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Fuxking repaint">
+      <option name="closed" value="true" />
+      <created>1734693541390</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1734693541390</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -230,6 +251,7 @@
     <MESSAGE value="Packed JAR file" />
     <MESSAGE value="Rearrange the packages" />
     <MESSAGE value="Music and sound effect" />
-    <option name="LAST_COMMIT_MESSAGE" value="Music and sound effect" />
+    <MESSAGE value="Fuxking repaint" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fuxking repaint" />
   </component>
 </project>
