@@ -8,15 +8,9 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-import Algorithms.*;
+import static Utility.Constants.*;
 
 public class ReversiBoardFrame extends JFrame {
-    private static final int DELAY_TIME = 1000;
-    private static final int MENUBAR_HEIGHT = 35;
-    private static final int INSET = 30;
-    private static final int BOARD_SIZE = 8;  // 棋盘的大小
-    private static final int TILE_SIZE = 80;  // 每个格子的大小
-
     public ReversiBoardFrame(int firstOperator, boolean playWithAI, int difficulty) {
         setSize(BOARD_SIZE*TILE_SIZE+10,BOARD_SIZE*TILE_SIZE+MENUBAR_HEIGHT+40);
         setTitle("黑白棋");

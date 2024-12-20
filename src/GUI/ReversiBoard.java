@@ -7,18 +7,15 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import Algorithms.*;
+import static Utility.Constants.*;
 
 public class ReversiBoard extends JPanel {
-    private static final int DELAY_TIME = 1000;
-    private static final int INSTANT = 1;
-    private static final int MENUBAR_HEIGHT = 30;
-    private static final int INSET = 30;
-    private static final int BOARD_SIZE = 8;  // 棋盘的大小
-    private static final int TILE_SIZE = 80;  // 每个格子的大小
+
     public int currentOperator = 1; // 1 is black, 2 is white
     public int AIOperator;
     boolean playWithAI;
     int getx, gety;
+
     private int[][] board = new int[BOARD_SIZE][BOARD_SIZE];  // 棋盘状态，0为空，1为黑棋，2为白棋
     private Image blackPieceImage = new ImageIcon(getClass().getResource("/GUI/img/blackPieceImage.png")).getImage();
     private Image whitePieceImage = new ImageIcon(getClass().getResource("/GUI/img/whitePieceImage.png")).getImage();
@@ -72,12 +69,13 @@ public class ReversiBoard extends JPanel {
                         currentOperator = currentOperator == 1 ? 2 : 1; // reverse the operator
                         SoundPlayer.playRandomSound("/sound/place_chess/"); // play sound
 
-//                        SwingUtilities.invokeLater(() -> {
                         // Next AI's move
                         AI ai1 = new AI(app, searchDepth);
                         Pair pos = ai1.search(currentOperator, 1, -AI.INF, AI.INF);
+
                         getx = pos.getFt();
                         gety = pos.getSc();
+
                         for (int i = 0; i < 8; ++i) {
                             for (int j = 0; j < 8; ++j) {
                                 System.out.print(board[i][j]);
@@ -85,35 +83,27 @@ public class ReversiBoard extends JPanel {
                             System.out.println();
                         }
 
-                            SwingUtilities.invokeLater(() -> {
-                        Timer timer = new Timer(INSTANT, e1 -> {
-                            for (int i = 0; i < 8; ++i) {
-                                for (int j = 0; j < 8; ++j) {
-                                    System.out.print(board[i][j]);
-                                }
-                                System.out.println();
+                        for (int i = 0; i < 8; ++i) {
+                            for (int j = 0; j < 8; ++j) {
+                                System.out.print(board[i][j]);
                             }
-                            repaint();
-                        });
-                        timer.setRepeats(false);
-                        timer.start();
-                            });
+                            System.out.println();
+                        }
+                        paintImmediately(RECTANGLE);
 
-                        ai1.findValidPlace(currentOperator);
-                        app.validMoves = new ArrayList<>(ai1.validMoves);
+//                        ai1.findValidPlace(currentOperator);
+//                        app.validMoves = new ArrayList<>(ai1.validMoves);
                         app.placeChess(getx, gety, currentOperator, true);
 
-//                                SwingUtilities.invokeLater(() -> {
+
                         Timer timer1 = new Timer(DELAY_TIME, e1 -> {
-                            repaint();
+                            paintImmediately(RECTANGLE);
                             currentOperator = currentOperator == 1 ? 2 : 1;
                         });
                         updateBoardWith(app);
                         timer1.setRepeats(false);
                         timer1.start();
                         app.clearPlayerOptions();
-//                                });
-
                         app.findValidPlace(currentOperator == 1 ? 2 : 1); // Predict next player's move
                         while (app.validMoves.isEmpty()) { // Player can't move
                             AI ai2 = new AI(app, searchDepth);
@@ -134,7 +124,7 @@ public class ReversiBoard extends JPanel {
                                     app.historicalBoards.clear();
                                     currentOperator = tmp.currentOperator;
                                     updateBoardWith(app);
-                                    repaint();
+                                    paintImmediately(RECTANGLE);
                                 } catch (Exception ex) {
                                     throw new RuntimeException(ex);
                                 }
@@ -150,7 +140,7 @@ public class ReversiBoard extends JPanel {
                                 SwingUtilities.invokeLater(() -> {
                                     updateBoardWith(app);
                                     Timer timer2 = new Timer(DELAY_TIME, e1 -> {
-                                        repaint();
+                                        paintImmediately(RECTANGLE);
                                     });
                                     timer2.setRepeats(false);
                                     timer2.start();
@@ -162,7 +152,6 @@ public class ReversiBoard extends JPanel {
                         app.validMoves.clear();
                         currentOperator = currentOperator == 1 ? 2 : 1;
                         app.clearPlayerOptions();
-//                        });
                     }
                 }
             }
