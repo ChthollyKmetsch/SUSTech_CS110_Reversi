@@ -5,25 +5,17 @@ import org.jetbrains.annotations.NotNull;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.nio.file.FileAlreadyExistsException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-public class Algo {
+public class Algo implements Serializable {
     protected final int[] dx = {1,1,1,0,0,-1,-1,-1};
     protected final int[] dy = {0,1,-1,1,-1,1,-1,0};
 
-    public static final int[][] initialBoard = {
-            {0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0},
-            {0,0,0,2,1,0,0,0},
-            {0,0,0,1,2,0,0,0},
-            {0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0},
-            {0,0,0,0,0,0,0,0},
-    };
+
 
     public int[][] map = new int[8][8];
     public ArrayList<ValidMoves> validMoves = new ArrayList<>();

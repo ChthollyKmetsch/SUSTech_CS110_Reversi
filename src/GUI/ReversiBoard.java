@@ -80,7 +80,7 @@ public class ReversiBoard extends JPanel {
                                     JOptionPane.showMessageDialog(ReversiBoard.this, "White wins!");
                                 }
                                 try { // Read a new game
-                                    Saving tmp = new Saving(Algo.initialBoard, humanOperator);
+                                    Saving tmp = new Saving(INITIALBOARD, humanOperator);
                                     app.loadFromSaving(tmp);
                                     app.historicalBoards.clear();
                                     updateBoardWith(app);
@@ -140,7 +140,7 @@ public class ReversiBoard extends JPanel {
                                     JOptionPane.showMessageDialog(ReversiBoard.this, "White wins!");
                                 }
                                 try { // Read a new game
-                                    Saving tmp = new Saving(Algo.initialBoard, humanOperator);
+                                    Saving tmp = new Saving(INITIALBOARD, humanOperator);
                                     app.loadFromSaving(tmp);
                                     app.historicalBoards.clear();
                                     updateBoardWith(app);

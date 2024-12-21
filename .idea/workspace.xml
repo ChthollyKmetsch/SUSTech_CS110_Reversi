@@ -9,18 +9,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7190c19b-eaa1-4dad-b512-ae9fc449429c" name="更改" comment="Fuxking repaint">
-      <change afterPath="$PROJECT_DIR$/src/GUI/TempCallFrame.java" afterDir="false" />
+    <list default="true" id="7190c19b-eaa1-4dad-b512-ae9fc449429c" name="更改" comment="Single Player and Multiplayer applied">
+      <change afterPath="$PROJECT_DIR$/src/GUI/GaneralStatePanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/SUSTech_CS110_Reversi_jar/SUSTech_CS110_Reversi.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/SUSTech_CS110_Reversi_jar/SUSTech_CS110_Reversi.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Algorithms/Algo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Algorithms/Algo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/MenuComponents/fileMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/MenuComponents/fileMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/ReversiBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/ReversiBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/ReversiBoardFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/ReversiBoardFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI/SoundPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/SoundPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Utility/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utility/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/sound/music/theme_2.wav" beforeDir="false" afterPath="$PROJECT_DIR$/src/sound/music/theme_2.wav" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -231,7 +226,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734693541390</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Single Player and Multiplayer applied">
+      <option name="closed" value="true" />
+      <created>1734711251178</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1734711251178</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -254,6 +257,7 @@
     <MESSAGE value="Rearrange the packages" />
     <MESSAGE value="Music and sound effect" />
     <MESSAGE value="Fuxking repaint" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fuxking repaint" />
+    <MESSAGE value="Single Player and Multiplayer applied" />
+    <option name="LAST_COMMIT_MESSAGE" value="Single Player and Multiplayer applied" />
   </component>
 </project>
