@@ -137,7 +137,7 @@ public class ReversiBoard extends JPanel {
                         app.placeChess(row, col, humanOperator, false);
                         SoundPlayer.playRandomSound("/sound/place_chess/"); // play sound
 
-                        currentOperator = humanOperator; // 不要动，我忘记为什么要更新 currentOperator 了
+                        currentOperator = humanOperator; // 不要动，我忘记为什么要更新 currentOperator 了，但是删除了就会出问题
                         // Next AI's move
                         AI ai1 = new AI(app, searchDepth);
                         Pair pos = ai1.search(AIOperator, 1, -AI.INF, AI.INF);
