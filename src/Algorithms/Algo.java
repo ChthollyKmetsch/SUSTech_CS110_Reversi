@@ -2,10 +2,7 @@ package Algorithms;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.Serializable;
+import java.io.*;
 import java.nio.file.FileAlreadyExistsException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -15,16 +12,15 @@ public class Algo implements Serializable {
     protected final int[] dx = {1,1,1,0,0,-1,-1,-1};
     protected final int[] dy = {0,1,-1,1,-1,1,-1,0};
 
-
-
     public int[][] map = new int[8][8];
     public ArrayList<ValidMoves> validMoves = new ArrayList<>();
     protected HashSet<ValidMoves> validMovesSet = new HashSet<>();
 
     public Stack<Saving> historicalBoards = new Stack<>();
+    public int currentOperatorForLoading;
 
-    protected int numOfBlack = 2;
-    protected int numOfWhite = 2;
+    public int numOfBlack = 2;
+    public int numOfWhite = 2;
     protected int totPieces = 4;
 
     public Algo() { // Initialize the board
@@ -84,9 +80,8 @@ public class Algo implements Serializable {
                 map[nx][ny] = currentOperator;
             }
         }
-        if (currentOperator == 1) { numOfBlack++; }
-        else { numOfWhite++; }
-        totPieces++;
+
+        updateChessStatus();
     }
 
     public ArrayList<ValidMoves> expand(int x, int y, int currentOperator, boolean type) {
@@ -129,8 +124,9 @@ public class Algo implements Serializable {
         }
     }
 
-    public void saveToFile(int[][] map, int currentOperator, int idx, boolean ai)
-            throws FileNotFoundException, FileAlreadyExistsException {
+    public void saveToFile(Algo save, int currentOperator, boolean ai)
+            throws IOException {
+        currentOperatorForLoading = currentOperator;
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy_MMdd_HHmmss");
         String saveName = now.format(formatter);
@@ -149,22 +145,12 @@ public class Algo implements Serializable {
         } else {
             tmpName = String.format("mp_saves/%s.sav", saveName);
         }
-        File newFile = new File(tmpName);
-        if (newFile.exists()) {
-            throw new FileAlreadyExistsException(saveName);
-        }
-        try (
-                PrintWriter output = new PrintWriter(tmpName)
-        ) {
-            for (int i = 0 ; i < 8; ++i) {
-                for (int j = 0; j < 8; ++j) {
-                    output.print(map[i][j] + " ");
-                }
-                output.println();
-            }
-            output.println(currentOperator);
-            output.close();
-        }
+
+        FileOutputStream fileOutput = new FileOutputStream(tmpName);
+        ObjectOutputStream objectOutput = new ObjectOutputStream(fileOutput);
+        objectOutput.writeObject(save);
+        objectOutput.close();
+        fileOutput.close();
     }
 
     public int loadFromSaving(Saving saving) {
@@ -184,6 +170,16 @@ public class Algo implements Serializable {
         loadFromSaving(tmpSaving);
         historicalBoards.pop();
         return tmpSaving.currentOperator;
+    }
+
+    public void loadFromAlgo(Algo newAlgo) {
+        this.historicalBoards = (Stack<Saving>) newAlgo.historicalBoards.clone();
+        for (int i = 0; i < 8; ++i) {
+            for (int j = 0; j < 8; ++j) {
+                this.map[i][j] = newAlgo.map[i][j];
+                this.currentOperatorForLoading = newAlgo.currentOperatorForLoading;
+            }
+        }
     }
 
     public void clearPlayerOptions() {

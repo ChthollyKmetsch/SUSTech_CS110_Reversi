@@ -1,8 +1,9 @@
 package Algorithms;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class ValidMoves implements Comparable<ValidMoves>{
+public class ValidMoves implements Comparable<ValidMoves>, Serializable {
     public int x, y, len, negDirIdx;
     public ValidMoves(int x, int y, int len, int negDirIdx) {
         this.x = x;

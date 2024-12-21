@@ -11,8 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.nio.file.FileAlreadyExistsException;
 
 public class fileMenu extends JMenu {
@@ -22,11 +21,12 @@ public class fileMenu extends JMenu {
 
     public fileMenu(ReversiBoardFrame owner, Algo algo, ReversiBoard board) {
         super("文件");
+//        Algo algo = app;
         saveItem.addActionListener(e -> {
             try {
-                algo.saveToFile(algo.map, board.currentOperator, algo.getTotPieces(), owner.finalPlayWithAI);
+                algo.saveToFile(algo, board.currentOperator, owner.finalPlayWithAI);
                 SoundPlayer.playSound("click_default.wav");
-            } catch (FileNotFoundException | FileAlreadyExistsException ex) {
+            } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
             JOptionPane.showMessageDialog(this, "保存成功！");
@@ -71,16 +71,19 @@ public class fileMenu extends JMenu {
                             SoundPlayer.playSound("click_default.wav");
                             String selectedFileName = listModel.get(selectedIndex);
                             File selectedFile = new File(folderPath, selectedFileName);
+                            String tmpName = folderPath + "/" + selectedFileName;
+                            // Serialization loading
                             try {
-                                Saving tmp = new Saving(selectedFile);
-                                algo.loadFromSaving(tmp);
-                                algo.historicalBoards.clear();
-                                board.currentOperator = tmp.currentOperator;
-                                board.updateBoardWith(algo);
-                                board.repaintWithYellowRing();
-                            } catch (Exception ex) {
+                                Algo tmp = null;
+                                FileInputStream fileInput = new FileInputStream(tmpName);
+                                ObjectInputStream objectInput = new ObjectInputStream(fileInput);
+                                tmp = (Algo) objectInput.readObject();
+                                algo.loadFromAlgo(tmp);
+                            } catch (IOException | ClassNotFoundException ex) {
                                 throw new RuntimeException(ex);
                             }
+                            board.updateBoardWith(algo);
+                            board.repaintWithYellowRing();
                         }
                         frame.dispose();
                     }

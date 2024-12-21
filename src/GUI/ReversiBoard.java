@@ -18,15 +18,15 @@ public class ReversiBoard extends JPanel {
     boolean isPaintYellowRing = true;
     boolean isPaintRobot = false;
 
-    private int[][] board = new int[BOARD_SIZE][BOARD_SIZE];  // 棋盘状态，0为空，1为黑棋，2为白棋
-    private Image blackPieceImage = new ImageIcon(getClass().getResource("/GUI/img/blackPieceImage.png")).getImage();
-    private Image whitePieceImage = new ImageIcon(getClass().getResource("/GUI/img/whitePieceImage.png")).getImage();
-    private Image yellowRingImage = new ImageIcon(getClass().getResource("/GUI/img/yellowRingImage.png")).getImage();
-    private Image RobotImage = new ImageIcon(getClass().getResource("/GUI/img/RobotImage.png")).getImage();
-    private Image backgroundImage = new ImageIcon(getClass().getResource("/GUI/img/war.png")).getImage();
-    private Algo app = new Algo();
+    private final int[][] board = new int[BOARD_SIZE][BOARD_SIZE];  // 棋盘状态，0为空，1为黑棋，2为白棋
+    private final Image blackPieceImage = new ImageIcon(getClass().getResource("/GUI/img/blackPieceImage.png")).getImage();
+    private final Image whitePieceImage = new ImageIcon(getClass().getResource("/GUI/img/whitePieceImage.png")).getImage();
+    private final Image yellowRingImage = new ImageIcon(getClass().getResource("/GUI/img/yellowRingImage.png")).getImage();
+    private final Image RobotImage = new ImageIcon(getClass().getResource("/GUI/img/RobotImage.png")).getImage();
+    private final Image backgroundImage = new ImageIcon(getClass().getResource("/GUI/img/war.png")).getImage();
+    public final Algo app = new Algo();
 
-    public ReversiBoard(int firstOperator, boolean ai, int searchDepth) {
+    public ReversiBoard(int firstOperator, boolean ai, int searchDepth, GeneralStatePanel displayPanel) {
         playWithAI = ai;
         currentOperator = firstOperator;
         AIOperator = firstOperator == 1 ? 2 : 1;
@@ -53,11 +53,20 @@ public class ReversiBoard extends JPanel {
                             row >= 0 && row < BOARD_SIZE &&
                             board[row][col] == 0 && app.isNextMoveValid(row, col)) { // Verify blank and in-range
                         app.placeChess(row, col, currentOperator, false);
+                        displayPanel.setBlackCount(app.numOfBlack);
+                        displayPanel.setWhiteCount(app.numOfWhite);
+                        displayPanel.setTotCount(app.getTotPieces());
+
                         SoundPlayer.playSound("click_mp.wav");
 
                         updateBoardWith(app);
                         currentOperator = currentOperator == 1 ? 2 : 1; // Change current player
+
                         repaintWithYellowRing();
+                        // If next player can move, yellow ring shall be painted.
+                        // else, though method called, nothing can be seen.
+                        // And go to next logic block
+
                         if (app.validMoves.isEmpty()) { // Next player can't move
                             currentOperator = currentOperator == 1 ? 2 : 1; // Back to this player
                             app.findValidPlace(currentOperator);
@@ -67,17 +76,41 @@ public class ReversiBoard extends JPanel {
                                 repaintWithYellowRing();
                                 SoundPlayer.playSound("game_over.wav");
                                 if (winner == 0 && tot != 64) {
-                                    JOptionPane.showMessageDialog(ReversiBoard.this, "Neither Can't move. Draw!");
+                                    JOptionPane.showMessageDialog(ReversiBoard.this,
+                                            String.format("""
+                                                    Black chess pieces : %d\s
+                                                    White chess pieces : %d\s
+                                                    Neither Can't move. Draw!""", app.numOfBlack, app.numOfWhite));
                                 } else if (winner == 1 && tot != 64) {
-                                    JOptionPane.showMessageDialog(ReversiBoard.this, "Neither Can't move. Black wins!");
+                                    JOptionPane.showMessageDialog(ReversiBoard.this,
+                                            String.format("""
+                                                    Black chess pieces : %d\s
+                                                    White chess pieces : %d\s
+                                                    Neither Can't move. Black wins!""", app.numOfBlack, app.numOfWhite));
                                 } else if (winner == 2 && tot != 64) {
-                                    JOptionPane.showMessageDialog(ReversiBoard.this, "Neither Can't move. White wins!");
+                                    JOptionPane.showMessageDialog(ReversiBoard.this,
+                                            String.format("""
+                                                    Black chess pieces : %d\s
+                                                    White chess pieces : %d\s
+                                                    Neither Can't move. White wins!""", app.numOfBlack, app.numOfWhite));
                                 } else if (winner == 0) {
-                                    JOptionPane.showMessageDialog(ReversiBoard.this, "Draw");
+                                    JOptionPane.showMessageDialog(ReversiBoard.this,
+                                            String.format("""
+                                                    Black chess pieces : %d\s
+                                                    White chess pieces : %d\s
+                                                    Draw!""", app.numOfBlack, app.numOfWhite));
                                 } else if (winner == 1) {
-                                    JOptionPane.showMessageDialog(ReversiBoard.this, "Black wins!");
+                                    JOptionPane.showMessageDialog(ReversiBoard.this,
+                                            String.format("""
+                                                    Black chess pieces : %d\s
+                                                    White chess pieces : %d\s
+                                                    Black wins!""", app.numOfBlack, app.numOfWhite));
                                 } else if (winner == 2) {
-                                    JOptionPane.showMessageDialog(ReversiBoard.this, "White wins!");
+                                    JOptionPane.showMessageDialog(ReversiBoard.this,
+                                            String.format("""
+                                                    Black chess pieces : %d\s
+                                                    White chess pieces : %d\s
+                                                    White wins!""", app.numOfBlack, app.numOfWhite));
                                 }
                                 try { // Read a new game
                                     Saving tmp = new Saving(INITIALBOARD, humanOperator);
@@ -93,6 +126,8 @@ public class ReversiBoard extends JPanel {
                                 repaintWithYellowRing();
                             }
                         }
+                        displayPanel.setCurrentOperator(currentOperator);
+                        displayPanel.paintImmediately(DISPLAY_PANEL_RECTANGLE);
                     }
                 } else { // Play-with-AI mode
                     if (currentOperator == humanOperator &&
@@ -102,7 +137,7 @@ public class ReversiBoard extends JPanel {
                         app.placeChess(row, col, humanOperator, false);
                         SoundPlayer.playRandomSound("/sound/place_chess/"); // play sound
 
-                        currentOperator = humanOperator;
+                        currentOperator = humanOperator; // 不要动，我忘记为什么要更新 currentOperator 了
                         // Next AI's move
                         AI ai1 = new AI(app, searchDepth);
                         Pair pos = ai1.search(AIOperator, 1, -AI.INF, AI.INF);
@@ -127,17 +162,41 @@ public class ReversiBoard extends JPanel {
                                 repaintWithYellowRing();
                                 SoundPlayer.playSound("game_over.wav");
                                 if (winner == 0 && tot != 64) {
-                                    JOptionPane.showMessageDialog(ReversiBoard.this, "Neither Can't move. Draw!");
+                                    JOptionPane.showMessageDialog(ReversiBoard.this,
+                                            String.format("""
+                                                    Black chess pieces : %d\s
+                                                    White chess pieces : %d\s
+                                                    Neither Can't move. Draw!""", app.numOfBlack, app.numOfWhite));
                                 } else if (winner == 1 && tot != 64) {
-                                    JOptionPane.showMessageDialog(ReversiBoard.this, "Neither Can't move. Black wins!");
+                                    JOptionPane.showMessageDialog(ReversiBoard.this,
+                                            String.format("""
+                                                    Black chess pieces : %d\s
+                                                    White chess pieces : %d\s
+                                                    Neither Can't move. Black wins!""", app.numOfBlack, app.numOfWhite));
                                 } else if (winner == 2 && tot != 64) {
-                                    JOptionPane.showMessageDialog(ReversiBoard.this, "Neither Can't move. White wins!");
+                                    JOptionPane.showMessageDialog(ReversiBoard.this,
+                                            String.format("""
+                                                    Black chess pieces : %d\s
+                                                    White chess pieces : %d\s
+                                                    Neither Can't move. White wins!""", app.numOfBlack, app.numOfWhite));
                                 } else if (winner == 0) {
-                                    JOptionPane.showMessageDialog(ReversiBoard.this, "Draw");
+                                    JOptionPane.showMessageDialog(ReversiBoard.this,
+                                            String.format("""
+                                                    Black chess pieces : %d\s
+                                                    White chess pieces : %d\s
+                                                    Draw!""", app.numOfBlack, app.numOfWhite));
                                 } else if (winner == 1) {
-                                    JOptionPane.showMessageDialog(ReversiBoard.this, "Black wins!");
+                                    JOptionPane.showMessageDialog(ReversiBoard.this,
+                                            String.format("""
+                                                    Black chess pieces : %d\s
+                                                    White chess pieces : %d\s
+                                                    Black wins!""", app.numOfBlack, app.numOfWhite));
                                 } else if (winner == 2) {
-                                    JOptionPane.showMessageDialog(ReversiBoard.this, "White wins!");
+                                    JOptionPane.showMessageDialog(ReversiBoard.this,
+                                            String.format("""
+                                                    Black chess pieces : %d\s
+                                                    White chess pieces : %d\s
+                                                    White wins!""", app.numOfBlack, app.numOfWhite));
                                 }
                                 try { // Read a new game
                                     Saving tmp = new Saving(INITIALBOARD, humanOperator);
@@ -206,10 +265,10 @@ public class ReversiBoard extends JPanel {
             for (int col = 0; col < BOARD_SIZE; col++) {
                 if (board[row][col] == 1) {
                     // 绘制黑棋
-                    g.drawImage(blackPieceImage, xOffset + col * TILE_SIZE + 5, yOffset + row * TILE_SIZE + 5, TILE_SIZE - 10, TILE_SIZE - 10, this);
+                    g.drawImage(blackPieceImage, xOffset + col * TILE_SIZE + 11, yOffset + row * TILE_SIZE + 11, TILE_SIZE - 20, TILE_SIZE - 20, this);
                 } else if (board[row][col] == 2) {
                     // 绘制白棋
-                    g.drawImage(whitePieceImage, xOffset + col * TILE_SIZE + 5, yOffset + row * TILE_SIZE + 5, TILE_SIZE - 10, TILE_SIZE - 10, this);
+                    g.drawImage(whitePieceImage, xOffset + col * TILE_SIZE + 11, yOffset + row * TILE_SIZE + 11, TILE_SIZE - 20, TILE_SIZE - 20, this);
                 }
             }
         }

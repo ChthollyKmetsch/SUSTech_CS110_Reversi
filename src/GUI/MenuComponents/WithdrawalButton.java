@@ -1,14 +1,15 @@
 package GUI.MenuComponents;
 
 import Algorithms.Algo;
+import GUI.GeneralStatePanel;
 import GUI.ReversiBoard;
-import GUI.ReversiBoardFrame;
 import GUI.SoundPlayer;
+import static Utility.Constants.*;
 
 import javax.swing.*;
 
-public class WithdrawButton extends JButton {
-    public WithdrawButton(Algo app, ReversiBoard board) {
+public class WithdrawalButton extends JButton {
+    public WithdrawalButton(Algo app, ReversiBoard board, GeneralStatePanel displayPanel) {
         super("悔棋");
         this.setContentAreaFilled(false);
         this.setBorderPainted(false);
@@ -22,6 +23,10 @@ public class WithdrawButton extends JButton {
                 board.currentOperator = tmpOperator;
                 board.updateBoardWith(app);
                 board.repaintWithYellowRing();
+                displayPanel.setBlackCount(app.numOfBlack);
+                displayPanel.setWhiteCount(app.numOfWhite);
+                displayPanel.setTotCount(app.getTotPieces());
+                displayPanel.paintImmediately(DISPLAY_PANEL_RECTANGLE);
             }
         });
     }

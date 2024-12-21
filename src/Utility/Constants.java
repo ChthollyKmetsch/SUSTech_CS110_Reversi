@@ -11,7 +11,9 @@ public class Constants {
     public static final int TILE_SIZE = 80;  // 每个格子的大小
     public static final int WINDOWS_WIDTH = BOARD_SIZE*TILE_SIZE+10; // 650
     public static final int WINDOWS_HEIGHT = BOARD_SIZE*TILE_SIZE+MENUBAR_HEIGHT+40; //710
+    public static final int GREEN_LIGHT_DIAMETER = 100;
     public static final Rectangle FULL_SCREEN_RECTANGLE = new Rectangle(0,0,WINDOWS_WIDTH,WINDOWS_HEIGHT);
+    public static final Rectangle DISPLAY_PANEL_RECTANGLE = new Rectangle(650,0,200,710);
     public static final int[][] INITIALBOARD = {
             {0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0},
@@ -22,4 +24,6 @@ public class Constants {
             {0,0,0,0,0,0,0,0},
             {0,0,0,0,0,0,0,0},
     };
+
+
 }

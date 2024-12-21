@@ -10,11 +10,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7190c19b-eaa1-4dad-b512-ae9fc449429c" name="更改" comment="Single Player and Multiplayer applied">
-      <change afterPath="$PROJECT_DIR$/src/GUI/GaneralStatePanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/GUI/GeneralStatePanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/SUSTech_CS110_Reversi_jar/SUSTech_CS110_Reversi.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/SUSTech_CS110_Reversi_jar/SUSTech_CS110_Reversi.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/saves/FinalMove.sav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Algorithms/AI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Algorithms/AI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Algorithms/Algo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Algorithms/Algo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Algorithms/Saving.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Algorithms/Saving.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Algorithms/ValidMoves.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Algorithms/ValidMoves.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/GaneralStatePanel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/MenuComponents/WithdrawButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/MenuComponents/WithdrawalButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/MenuComponents/fileMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/MenuComponents/fileMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/ReversiBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/ReversiBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/ReversiBoardFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/ReversiBoardFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Utility/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utility/Constants.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -62,25 +70,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Downloaded.Files.Path.Enabled": "false",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "dev",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Admin/IdeaProjects/swing test",
-    "onboarding.tips.debug.path": "C:/Users/Admin/IdeaProjects/SUSTech_CS110_Reversi/src/Main.java",
-    "project.structure.last.edited": "工件",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
-    "应用程序.Main.executor": "Run"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Admin/IdeaProjects/swing test&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/Admin/IdeaProjects/SUSTech_CS110_Reversi/src/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;工件&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
+    &quot;应用程序.Main.executor&quot;: &quot;Run&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Admin\IdeaProjects\SUSTech_CS110_Reversi\src\GUI\img" />
@@ -234,7 +242,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734711251178</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Single Player and Multiplayer applied">
+      <option name="closed" value="true" />
+      <created>1734745744779</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1734745744779</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

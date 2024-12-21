@@ -2,6 +2,7 @@ package Algorithms;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.Scanner;
 
 /*
@@ -10,7 +11,7 @@ import java.util.Scanner;
     currentOperator is the next player who will place a piece of chess
     idx is the number of moves that the game has been through
  */
-public class Saving {
+public class Saving implements Serializable {
     public int[][] map = new int[8][8];
     public int currentOperator;
 

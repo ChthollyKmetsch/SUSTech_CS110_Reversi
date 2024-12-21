@@ -26,7 +26,7 @@ public class AI extends Algo {
         validMoves.clear();
         findValidPlace(currentOperator);
         ArrayList<ValidMoves> currentValidMoves = new ArrayList<>(validMoves);
-        if (currentDepth >= targetDepth) { // 搜到头
+        if (currentDepth >= targetDepth || getCurrentBlanks() < targetDepth-currentDepth) { // 搜到头
             int finalVal = 0;
             int finalX = 0, finalY = 0;
             boolean firstMove = false;
@@ -128,5 +128,15 @@ public class AI extends Algo {
     @Override
     protected int idxOfNextMove(int x, int y) {
         return INF;
+    }
+
+    private int getCurrentBlanks() {
+        int ans = 0;
+        for (int i = 0; i < 8; ++i) {
+            for (int j = 0 ; j < 8; ++j) {
+                if (this.map[i][j] == 0) ++ans;
+            }
+        }
+        return ans;
     }
 }
