@@ -2,6 +2,7 @@ package GUI.MenuComponents;
 
 import Algorithms.Algo;
 import Algorithms.Saving;
+import GUI.GeneralStatePanel;
 import GUI.ReversiBoard;
 import GUI.ReversiBoardFrame;
 import GUI.SoundPlayer;
@@ -14,12 +15,14 @@ import java.awt.event.MouseEvent;
 import java.io.*;
 import java.nio.file.FileAlreadyExistsException;
 
+import static Utility.Constants.DISPLAY_PANEL_RECTANGLE;
+
 public class fileMenu extends JMenu {
     JMenuItem saveItem = new JMenuItem("保存");
     JMenuItem loadItem = new JMenuItem("读档");
     JMenuItem deleteItem = new JMenuItem("管理存档");
 
-    public fileMenu(ReversiBoardFrame owner, Algo algo, ReversiBoard board) {
+    public fileMenu(ReversiBoardFrame owner, Algo algo, ReversiBoard board, GeneralStatePanel displayPanel) {
         super("文件");
 //        Algo algo = app;
         saveItem.addActionListener(e -> {
@@ -84,6 +87,12 @@ public class fileMenu extends JMenu {
                             }
                             board.updateBoardWith(algo);
                             board.repaintWithYellowRing();
+
+                            displayPanel.setBlackCount(algo.numOfBlack);
+                            displayPanel.setWhiteCount(algo.numOfWhite);
+                            displayPanel.setTotCount(algo.getTotPieces());
+                            displayPanel.setCurrentOperator(algo.currentOperatorForLoading);
+                            displayPanel.paintImmediately(DISPLAY_PANEL_RECTANGLE);
                         }
                         frame.dispose();
                     }

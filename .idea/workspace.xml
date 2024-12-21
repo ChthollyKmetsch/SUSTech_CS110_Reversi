@@ -10,7 +10,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7190c19b-eaa1-4dad-b512-ae9fc449429c" name="更改" comment="Chess counter and serializable loading applied.">
+      <change afterPath="$PROJECT_DIR$/src/GUI/MenuComponents/ResetButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/SUSTech_CS110_Reversi_jar/SUSTech_CS110_Reversi.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/SUSTech_CS110_Reversi_jar/SUSTech_CS110_Reversi.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Algorithms/AI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Algorithms/AI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/GeneralStatePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/GeneralStatePanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/MenuComponents/GeneralStatePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/MenuComponents/SeparatorPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/MenuComponents/WithdrawalButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/MenuComponents/WithdrawalButton.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/MenuComponents/fileMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/MenuComponents/fileMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI/ReversiBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/ReversiBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/ReversiBoardFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/ReversiBoardFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GUI/TempCallFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI/TempCallFrame.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,6 +93,20 @@
     <key name="ExtractSuperBase.RECENT_KEYS">
       <recent name="" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="SUSTech_CS110_Reversi" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="应用程序.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -245,7 +269,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734768130452</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Chess counter and serializable loading applied.">
+      <option name="closed" value="true" />
+      <created>1734768210563</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1734768210563</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

@@ -15,11 +15,12 @@ public class WithdrawalButton extends JButton {
         this.setBorderPainted(false);
         this.setSize(20,20);
         addActionListener(e -> {
+            SoundPlayer.playSound("click_default.wav");
             int tmpOperator = app.loadFromStack();
             if (tmpOperator == 0) {
                 JOptionPane.showMessageDialog(board, "无法悔棋！", "错误", JOptionPane.ERROR_MESSAGE);
             } else {
-                SoundPlayer.playSound("click_default.wav");
+
                 board.currentOperator = tmpOperator;
                 board.updateBoardWith(app);
                 board.repaintWithYellowRing();

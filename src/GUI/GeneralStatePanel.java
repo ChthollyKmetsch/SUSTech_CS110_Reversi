@@ -12,8 +12,9 @@ public class GeneralStatePanel extends JPanel {
     private final Image rightBracketImage = new ImageIcon(getClass().getResource("/GUI/img/rightBracketImage.png")).getImage();
 
     private int currentOperator = 1;
-    private String gameMode;
     private int blackCount = 2, whiteCount = 2, totCount = 4;
+    public int totSeconds = 0;
+    public int totMinutes = 0;
 
     public GeneralStatePanel() {
         setSize(200,710);
@@ -60,6 +61,11 @@ public class GeneralStatePanel extends JPanel {
         g.drawString(String.format("Count: %d", blackCount), xOffset+58, yOffset+180);
         g.drawString(String.format("Count: %d", whiteCount), xOffset+58, yOffset+600);
         g.drawString(String.format("Step(s): %d", totCount-4), xOffset+50, yOffset+350);
+
+        // Print the time of one round of game
+        String currentTimeString = String.format("%d%d : %d%d",
+                totMinutes/10, totMinutes%10, (totSeconds-60*totMinutes)/10, totSeconds%10);
+        g.drawString(currentTimeString, xOffset+65, yOffset+400);
     }
 
     public void setCurrentOperator(int currentOperator) {

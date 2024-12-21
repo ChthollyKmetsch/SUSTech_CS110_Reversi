@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 import Algorithms.*;
+
 import static Utility.Constants.*;
 
 public class ReversiBoard extends JPanel {
@@ -121,6 +122,8 @@ public class ReversiBoard extends JPanel {
                                 } catch (Exception ex) {
                                     throw new RuntimeException(ex);
                                 }
+                                displayPanel.totSeconds = 0;
+                                displayPanel.totMinutes = 0;
                             } else {
                                 JOptionPane.showMessageDialog(ReversiBoard.this, "Next player can't move, back to this player!");
                                 repaintWithYellowRing();
@@ -135,7 +138,13 @@ public class ReversiBoard extends JPanel {
                             row >= 0 && row < BOARD_SIZE &&
                             board[row][col] == 0 && app.isNextMoveValid(row, col)) { // Verify blank and in-range and player's move
                         app.placeChess(row, col, humanOperator, false);
-                        SoundPlayer.playRandomSound("/sound/place_chess/"); // play sound
+                        SoundPlayer.playRandomSound("/sound/place_chess/");
+
+                        displayPanel.setBlackCount(app.numOfBlack);
+                        displayPanel.setWhiteCount(app.numOfWhite);
+                        displayPanel.setTotCount(app.getTotPieces());
+                        displayPanel.setCurrentOperator(AIOperator);
+                        displayPanel.paintImmediately(DISPLAY_PANEL_RECTANGLE);
 
                         currentOperator = humanOperator; // 不要动，我忘记为什么要更新 currentOperator 了，但是删除了就会出问题
                         // Next AI's move
@@ -157,73 +166,95 @@ public class ReversiBoard extends JPanel {
                             AI ai2 = new AI(app, searchDepth);
                             ai2.findValidPlace(AIOperator);
                             if (ai2.validMoves.isEmpty()) { // AI can't move, too. Game end.
-                                int winner = app.getWinner();
-                                int tot = app.getTotPieces();
-                                repaintWithYellowRing();
-                                SoundPlayer.playSound("game_over.wav");
-                                if (winner == 0 && tot != 64) {
-                                    JOptionPane.showMessageDialog(ReversiBoard.this,
-                                            String.format("""
-                                                    Black chess pieces : %d\s
-                                                    White chess pieces : %d\s
-                                                    Neither Can't move. Draw!""", app.numOfBlack, app.numOfWhite));
-                                } else if (winner == 1 && tot != 64) {
-                                    JOptionPane.showMessageDialog(ReversiBoard.this,
-                                            String.format("""
-                                                    Black chess pieces : %d\s
-                                                    White chess pieces : %d\s
-                                                    Neither Can't move. Black wins!""", app.numOfBlack, app.numOfWhite));
-                                } else if (winner == 2 && tot != 64) {
-                                    JOptionPane.showMessageDialog(ReversiBoard.this,
-                                            String.format("""
-                                                    Black chess pieces : %d\s
-                                                    White chess pieces : %d\s
-                                                    Neither Can't move. White wins!""", app.numOfBlack, app.numOfWhite));
-                                } else if (winner == 0) {
-                                    JOptionPane.showMessageDialog(ReversiBoard.this,
-                                            String.format("""
-                                                    Black chess pieces : %d\s
-                                                    White chess pieces : %d\s
-                                                    Draw!""", app.numOfBlack, app.numOfWhite));
-                                } else if (winner == 1) {
-                                    JOptionPane.showMessageDialog(ReversiBoard.this,
-                                            String.format("""
-                                                    Black chess pieces : %d\s
-                                                    White chess pieces : %d\s
-                                                    Black wins!""", app.numOfBlack, app.numOfWhite));
-                                } else if (winner == 2) {
-                                    JOptionPane.showMessageDialog(ReversiBoard.this,
-                                            String.format("""
-                                                    Black chess pieces : %d\s
-                                                    White chess pieces : %d\s
-                                                    White wins!""", app.numOfBlack, app.numOfWhite));
-                                }
-                                try { // Read a new game
-                                    Saving tmp = new Saving(INITIALBOARD, humanOperator);
-                                    app.loadFromSaving(tmp);
-                                    app.historicalBoards.clear();
-                                    updateBoardWith(app);
+//                                Timer timer = new Timer(DELAY_TIME, e1 -> {
+                                    displayPanel.setBlackCount(app.numOfBlack);
+                                    displayPanel.setWhiteCount(app.numOfWhite);
+                                    displayPanel.setTotCount(app.getTotPieces());
+                                    displayPanel.setCurrentOperator(AIOperator);
+                                    displayPanel.paintImmediately(DISPLAY_PANEL_RECTANGLE);
+                                    int winner = app.getWinner();
+                                    int tot = app.getTotPieces();
                                     repaintWithYellowRing();
-                                } catch (Exception ex) {
-                                    throw new RuntimeException(ex);
-                                }
-
+                                    SoundPlayer.playSound("game_over.wav");
+                                    if (winner == 0 && tot != 64) {
+                                        JOptionPane.showMessageDialog(ReversiBoard.this,
+                                                String.format("""
+                                                        Black chess pieces : %d\s
+                                                        White chess pieces : %d\s
+                                                        Neither Can't move. Draw!""", app.numOfBlack, app.numOfWhite));
+                                    } else if (winner == 1 && tot != 64) {
+                                        JOptionPane.showMessageDialog(ReversiBoard.this,
+                                                String.format("""
+                                                        Black chess pieces : %d\s
+                                                        White chess pieces : %d\s
+                                                        Neither Can't move. Black wins!""", app.numOfBlack, app.numOfWhite));
+                                    } else if (winner == 2 && tot != 64) {
+                                        JOptionPane.showMessageDialog(ReversiBoard.this,
+                                                String.format("""
+                                                        Black chess pieces : %d\s
+                                                        White chess pieces : %d\s
+                                                        Neither Can't move. White wins!""", app.numOfBlack, app.numOfWhite));
+                                    } else if (winner == 0) {
+                                        JOptionPane.showMessageDialog(ReversiBoard.this,
+                                                String.format("""
+                                                        Black chess pieces : %d\s
+                                                        White chess pieces : %d\s
+                                                        Draw!""", app.numOfBlack, app.numOfWhite));
+                                    } else if (winner == 1) {
+                                        JOptionPane.showMessageDialog(ReversiBoard.this,
+                                                String.format("""
+                                                        Black chess pieces : %d\s
+                                                        White chess pieces : %d\s
+                                                        Black wins!""", app.numOfBlack, app.numOfWhite));
+                                    } else if (winner == 2) {
+                                        JOptionPane.showMessageDialog(ReversiBoard.this,
+                                                String.format("""
+                                                        Black chess pieces : %d\s
+                                                        White chess pieces : %d\s
+                                                        White wins!""", app.numOfBlack, app.numOfWhite));
+                                    }
+                                    try { // Read a new game
+                                        Saving tmp = new Saving(INITIALBOARD, humanOperator);
+                                        app.loadFromSaving(tmp);
+                                        app.historicalBoards.clear();
+                                        updateBoardWith(app);
+                                        repaintWithYellowRing();
+                                    } catch (Exception ex) {
+                                        throw new RuntimeException(ex);
+                                    }
+                                    displayPanel.totSeconds = 0;
+                                    displayPanel.totMinutes = 0;
+//                                });
+//                                timer.setRepeats(false);
+//                                timer.start();
                             } else { // But AI can move, repeat AI's search
-                                pos = ai2.search(AIOperator, 1, -AI.INF, AI.INF);
-                                getx = pos.getFt();
-                                gety = pos.getSc(); // 获取 AI 行动提示标志坐标，以便 repaint
+
+                                Pair pos2 = ai2.search(AIOperator, 1, -AI.INF, AI.INF);
+                                getx = pos2.getFt();
+                                gety = pos2.getSc(); // 获取 AI 行动提示标志坐标，以便 repaint
 
                                 repaintWithRobot();
                                 app.placeChess(getx, gety, AIOperator, true);
+                                displayPanel.setBlackCount(app.numOfBlack);
+                                displayPanel.setWhiteCount(app.numOfWhite);
+                                displayPanel.setTotCount(app.getTotPieces());
+                                displayPanel.setCurrentOperator(AIOperator);
+                                displayPanel.paintImmediately(DISPLAY_PANEL_RECTANGLE);
                                 repaintWithYellowRing(DELAY_TIME);
                             }
                             app.validMoves.clear();
                             app.findValidPlace(humanOperator);
+
                         }
 //                        app.clearPlayerOptions();
                         repaintWithYellowRing(DELAY_TIME);
                     }
                     currentOperator = humanOperator;
+                    displayPanel.setBlackCount(app.numOfBlack);
+                    displayPanel.setWhiteCount(app.numOfWhite);
+                    displayPanel.setTotCount(app.getTotPieces());
+                    displayPanel.setCurrentOperator(humanOperator);
+                    displayPanel.paintImmediately(DISPLAY_PANEL_RECTANGLE);
                 }
             }
         });
@@ -243,14 +274,10 @@ public class ReversiBoard extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-
         // 获取窗口的边距（用于确保棋盘绘制不会被标题栏挡住）
-        Insets insets = getInsets();
         int xOffset = 0;
         int yOffset = 0;
-        // 设置棋盘背景颜色
-        g.setColor(Color.LIGHT_GRAY);  // 设置背景颜色为浅灰色
-//        g.fillRect(xOffset, yOffset, BOARD_SIZE * TILE_SIZE, BOARD_SIZE * TILE_SIZE);  // 填充背景
+        // 设置棋盘背景
         g.drawImage(backgroundImage, 0, 0, WINDOWS_WIDTH, WINDOWS_HEIGHT, this);
 
         // 绘制棋盘的格子
@@ -281,7 +308,7 @@ public class ReversiBoard extends JPanel {
                 g.drawImage(yellowRingImage, xOffset + i.y * TILE_SIZE + 5, xOffset + i.x * TILE_SIZE + 5, TILE_SIZE - 10, TILE_SIZE - 10, this);
             }
         }
-        if (isPaintRobot){
+        if (isPaintRobot) {
             g.drawImage(RobotImage, xOffset + gety * TILE_SIZE + 5, xOffset + getx * TILE_SIZE + 5, TILE_SIZE - 10, TILE_SIZE - 10, this);
         }
 //        app.clearPlayerOptions();
@@ -343,10 +370,10 @@ public class ReversiBoard extends JPanel {
             throw new RuntimeException(e);
         }
 //        Timer timer1 = new Timer(delayTime, e1 -> {
-            updateBoardWith(app);
-            paintImmediately(FULL_SCREEN_RECTANGLE);
-            isPaintYellowRing = false;
-            isPaintRobot = false;
+        updateBoardWith(app);
+        paintImmediately(FULL_SCREEN_RECTANGLE);
+        isPaintYellowRing = false;
+        isPaintRobot = false;
 //        });
 //        timer1.setRepeats(false);
 //        timer1.start();

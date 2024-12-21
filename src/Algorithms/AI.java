@@ -58,12 +58,19 @@ public class AI extends Algo {
             return new Pair(finalX,finalY,finalVal);
         }
 
+        int tmpX = 1, tmpY = 1;
+        if (!currentValidMoves.isEmpty()) {
+            ValidMoves tmpMove = currentValidMoves.get(0);
+            tmpX = tmpMove.x;
+            tmpY = tmpMove.y;
+        }
+        System.out.println(currentValidMoves.size());
         Pair ans;
         int ansVal = 0;
         if (currentOperator == 1) {
-            ans = new Pair(1,2,-INF);
+            ans = new Pair(tmpX,tmpY,-INF);
         } else {
-            ans = new Pair(1,2,INF);
+            ans = new Pair(tmpX,tmpY,INF);
         }
 
         int[][] originMap = new int[8][8]; // whiteboard game map

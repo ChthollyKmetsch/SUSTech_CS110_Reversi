@@ -8,8 +8,6 @@ public class TempCallFrame extends JFrame {
     public boolean playWithAI;
 
     public TempCallFrame(int firstOperator, int difficulty) {
-//        Clip clip = SoundPlayer.playMusic("blue_archive.wav");
-
         setSize(400,80);
         setTitle("Choose game mode");
         setResizable(false);
